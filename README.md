@@ -8,3 +8,5 @@ If both letters are the same (or only one letter is left), add an "X" after the 
 If the letters appear on the same row of your table, replace them with the letters to their immediate right respectively 
 If the letters appear on the same column of your table, replace them with the letters immediately below respectively 
 If the letters are not on the same row or column, replace them with the letters on the same row respectively but at the other pair of corners of the rectangle defined by the original pair. The order is important – the first letter of the encrypted pair is the one that lies on the same row as the first letter of the plaintext pair.
+
+Morse code is a common code that is used to encode messages consisting of letters and digits. Each letter consists of a series of dots and dashes.Encode a message by replacing each letter by its code symbol. Then decode the message using Morse code. Make sure you use a delimiter symbol between coded letters.
