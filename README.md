@@ -21,4 +21,5 @@ Encode a message by replacing each letter by its code symbol. Then decode the me
 --> Some References : https://www.geeksforgeeks.org/morse-code/,
                       https://www.braingle.com/brainteasers/codes/beale.php,
                       https://searchsecurity.techtarget.com/definition/cryptography
+                      http://rumkin.com/tools/cipher/playfair.php
                       
