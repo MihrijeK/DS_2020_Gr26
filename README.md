@@ -9,4 +9,8 @@ If the letters appear on the same row of your table, replace them with the lette
 If the letters appear on the same column of your table, replace them with the letters immediately below respectively 
 If the letters are not on the same row or column, replace them with the letters on the same row respectively but at the other pair of corners of the rectangle defined by the original pair. The order is important – the first letter of the encrypted pair is the one that lies on the same row as the first letter of the plaintext pair.
 
-Morse code is a common code that is used to encode messages consisting of letters and digits. Each letter consists of a series of dots and dashes.Encode a message by replacing each letter by its code symbol. Then decode the message using Morse code. Make sure you use a delimiter symbol between coded letters.
+Morse code is a method of transmitting text information as a series of on-off tones, lights, or clicks that can be directly understood by a skilled listener or observer without special equipment. It is named for Samuel F. B. Morse, an inventor of the telegraph.
+The algorithm is very simple.Every character is substituted by a series of ‘dots’ and ‘dashes’ or sometimes just singular ‘dot’ or ‘dash’ and vice versa.
+Every text string is converted into the series of dots and dashes. For this every character is converted into its Morse code and appended in encoded message.
+Encode a message by replacing each letter by its code symbol. Then decode the message using Morse code. Make sure you use a delimiter symbol between coded letters.
+--> Some References : https://www.geeksforgeeks.org/morse-code/
