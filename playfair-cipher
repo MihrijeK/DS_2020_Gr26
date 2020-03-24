@@ -4,10 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp3
+namespace Playfair
 {
     class Program
     {
+    
+static List<char> tl = new List<char>();
+        static void initPlainText(string teksti)
+        {
+            teksti = teksti.ToUpper();
+            foreach (var t in teksti)
+            {
+                if (t == ' ') continue;
+                else if (t == 'J') tl.Add('I');
+                tl.Add(t);
+            }
+        }
+        static List<char> Krijoplaintekstiin()
+        {
+            List<char> lista1 = new List<char>();
 
-        Char[,] keyTable = new char[5, 5];
-        static void Main(string[] args)
+
+            for (int i = 0; i < tl.Count - 1; i++) //Krahason dy karaktere dhe nese jane te njejte karakterin e dyte e bene X
+            {
+                if (tl[i] == tl[i + 1])
+                {
+                    lista1.Add(tl[i]);
+                    lista1.Add('X');
+                    continue;
+                }
+                else lista1.Add(tl[i]);
+
+            }
+            lista1.Add(tl[tl.Count - 1]);
+
+            if (lista1.Count % 2 == 1) lista1.Add('X');
+
+            return lista1;
+        }
