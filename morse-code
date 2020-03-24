@@ -8,68 +8,107 @@ namespace UshtrimemeMORSE
 {
     class Program
     {
-        static Dictionary<char, string> translator = new Dictionary<char, string>();
-        private char dot = '.';
-        private char dash = '−';
+       public static Dictionary<string, string> morse = new Dictionary<string, string>()
+        {
+            {"A", ".-"},
+            {"B", "-..."},
+            {"C", "-.-."},
+            {"D", "-.."},
+            {"E", "."},
+            {"F", "..-."},
+            {"G", "--."},
+            {"H", "...."},
+            {"I", ".."},
+            {"J", ".---"},
+            {"K", "-.-"},
+            {"L", ".-.."},
+            {"M", "--"},
+            {"N", "-."},
+            {"O", "---"},
+            {"P", ".--."},
+            {"Q", "--.-"},
+            {"R", ".-."},
+            {"S", "..."},
+            {"T", "-"},
+            {"U", "..-"},
+            {"V", "...-"},
+            {"W", ".--"},
+            {"X", "-..-"},
+            {"Y", "-.--"},
+            {"Z", "--.."},
+            {"0", "-----"},
+            {"1", ".----"},
+            {"2", "..---"},
+            {"3", "...--"},
+            {"4", "....-"},
+            {"5", "....."},
+            {"6", "-...."},
+            {"7", "--..."},
+            {"8", "---.."},
+            {"9", "----."},
+            {" ", "/" },
+              };
+        
 
         static void Main(string[] args)
         {
-            Dictionary<char, string> dictionary = new Dictionary<char, string>();
-            
-
-            dictionary.Add('a', ".-");
-            dictionary.Add('b', "-..");
-            dictionary.Add('c', "-.-.");
-            dictionary.Add('d', "-..");
-            dictionary.Add('e', ".");
-            dictionary.Add('f', "..-.");
-            dictionary.Add('g', "--.");
-            dictionary.Add('h', "....");
-            dictionary.Add('i', "..");
-            dictionary.Add('j', ".---");
-            dictionary.Add('k', "-.-");
-            dictionary.Add('l', ".-..");
-            dictionary.Add('m', "--");
-            dictionary.Add('n', "-.");
-            dictionary.Add('o', "---");
-            dictionary.Add('p', ".--.");
-            dictionary.Add('q', "--.-");
-            dictionary.Add('r', ".-.");
-            dictionary.Add('s', "...");
-            dictionary.Add('t', "-");
-            dictionary.Add('u', "..-");
-            dictionary.Add('v', "...-");
-            dictionary.Add('w', ".--");
-            dictionary.Add('x', "-..-");
-            dictionary.Add('y', "-.--");
-            dictionary.Add('z', "--..");
-            dictionary.Add('1', ".----");
-            dictionary.Add('2', "..---");
-            dictionary.Add('3', "...--");
-            dictionary.Add('4', "....-");
-            dictionary.Add('5', ".....");
-            dictionary.Add('6', "-....");
-            dictionary.Add('7', "--...");
-            dictionary.Add('8', "---..");
-            dictionary.Add('9', "----.");
-            dictionary.Add('0', "-----");
-            dictionary.Add(' ', "/");
-            if (args[0].Equals("encode"))
+           
+            if (args[0].Equals("decode"))
             {
                 string plaintext = args[1];
-                StringBuilder sb = new StringBuilder(plaintext);
-                foreach (char c in plaintext)
-            {
-                char ch = Char.ToLower(c);
-                if (dictionary.ContainsKey(ch))
-                {
-                    sb.Append(dictionary[ch]).Append(" ");
-                }
-            }
+                string output = " ";
 
-            Console.WriteLine(sb);
-            Console.ReadLine();
+                // Nese plaintexti permban se paku nje prej shkronjave te njohura morse
+                if (morse.Values.Any(morseLetter => plaintexti.Contains(morseLetter)))
+                {
+                    output = Decode(plaintexti);
+                }
+                Console.WriteLine(output);
+            Console.WriteLine();
+            Console.ReadKey();
              }
+             else if (args[0].Equals("encode"))
+            {
+                string plaintexti = args[1];
+                
+
+                string output;
+
+                output = Encode(plaintexti);
+
+
+                Console.WriteLine(output);
+
+                Console.WriteLine();
+                Console.ReadKey();
+            }
+            else if (args[0].Equals("beep"))
+            {
+                string plaintexti = args[1];
+                int tone = 415; //G# note
+                int dotDuration = 300; //The duration of one time unit
+                int dashDuration = dotDuration * 3; //A dash is 3 time units
+                int charSpaceDuration = dotDuration * 3; //The pause between characters is 3 time units
+                int wordSpaceDuration = dotDuration * 7; //The pause between words is 7 time units
+                foreach (char c in plaintexti)
+                {
+                    if (c == '.')
+                    {
+                        Console.Beep(tone, dotDuration);
+                    }
+                    else if (c == '-')
+                    {
+                        Console.Beep(tone, dashDuration);
+                    }
+                    else if (c == ' ')
+                    {
+                        System.Threading.Thread.Sleep(charSpaceDuration);
+                    }
+                    else if (c == '/')
+                    {
+                        System.Threading.Thread.Sleep(wordSpaceDuration);
+                    }
+                }
             
            
 
