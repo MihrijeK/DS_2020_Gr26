@@ -42,3 +42,31 @@ static List<char> tl = new List<char>();
 
             return lista1;
         }
+        static List<char> merrAlfabetin()
+        {
+            List<char> lista1 = new List<char>();
+            for (char i = 'A'; i <= 'Z'; i++)
+            {
+                if (i == 'J') continue;
+                lista1.Add(i);
+            }
+            return lista1;
+        }
+        static List<char> Krijotabelen(string qelesi)
+        {
+            qelesi = qelesi.ToUpper();
+            List<char> lista1 = new List<char>();
+            List<char> alfabeti = merrAlfabetin();
+            lista1 = qelesi.Distinct().ToList(); //Largon shkronjat duplikate nga qelesi
+
+
+            for (int i = 0; i < lista1.Count; i++) //Krahason karakteret e qelesit dhe te alfabetit dhe i largon duplikatet
+            {
+                for (int j = 0; j < alfabeti.Count; j++)
+                {
+                    if (lista1[i] == alfabeti[j])//nese dy shkronja te njejta
+                    {
+                        alfabeti.Remove(alfabeti[j]);//largo njeren
+                    }
+                }
+            }
