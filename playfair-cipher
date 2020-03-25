@@ -8,6 +8,39 @@ namespace Playfair
 {
     class Program
     {
+       public static void Main(string[] args)
+        {
+
+
+
+            if (args[0].Equals("e"))
+            {
+                string plainText = args[2];
+                initPlainText(plainText);
+
+                string qelesi = args[1];
+
+
+                Enkriptimi(Krijotabelen(qelesi), Krijoplaintekstiin());
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+           
+    
     
 static List<char> tl = new List<char>();
         static void initPlainText(string teksti)
@@ -70,3 +103,80 @@ static List<char> tl = new List<char>();
                     }
                 }
             }
+             foreach (var vlera in alfabeti)
+            {
+                lista1.Add(vlera);
+            }
+            return lista1;
+        }
+        static void Enkriptimi(List<char> table, List<char> plainText)
+        {
+            int gjeresia = 5, lartesia = 5;
+            char[,] lista1 = new char[gjeresia, lartesia];//Deklarimi i matrices 5x5
+
+            int s = 0;
+            //Shendrro nje varg nje dimensional ne varg dydimensional
+            for (int i = 0; i < gjeresia * lartesia; i++)
+            {
+
+                lista1[i / gjeresia, i % lartesia] = table[s];
+                s++;
+            }
+
+            //Printon tabelen ne vargje dydimensionale
+            for (int i = 0; i < gjeresia * lartesia; i++)
+            {
+                if (i % 5 == 0) Console.WriteLine();
+                Console.Write(lista1[i / gjeresia, i % lartesia] + "  ");
+
+            }
+            Console.WriteLine();
+            Console.Write("Teksti pas enkriptimit :");
+
+            //Enkriptimi
+            for (int i = 0; i < plainText.Count; i = i + 1)
+            {
+
+                for (int j = 0; j < plainText.Count; j = j + 2)//Pas qdo dy shkronjave paraqit hapsire
+                {
+                    Console.Write(" ");
+                }
+
+
+                char k1 = plainText[i]; //karakteri i pare
+                char k2 = plainText[i + 1];//karakteri i dyte
+                int row1 = 0, row2 = -1, col1 = 0, col2 = -1;
+
+                for (int j = 0; j < gjeresia * lartesia; j++)// you can replace this with insted for loop
+                {
+
+                    if (lista1[j / gjeresia, j % lartesia] == k1) // merr indeksin e karakterit te pare te rreshtit dhe kolones
+                    {
+                        row1 = j / gjeresia;
+                        col1 = j % lartesia;
+                    }
+                    if (lista1[j / gjeresia, j % lartesia] == k2) // merr indeksin e karakterit te dyte te rreshtit dhe kolones
+                    {
+                        row2 = j / gjeresia;
+                        col2 = j % lartesia;
+                    }
+                }
+
+                //Kontrollo nese karakteri i pare dhe i dyti jane ne te njejtin rreshte
+                if (row1 == row2)
+                {
+                    Console.Write(lista1[row1, (col1 + 1) % lartesia] + "" + lista1[row2, (col2 + 1) % lartesia]);
+                }
+                //Kontrollo nese karakteri i pare dhe i dyti jane ne te njejten kolone
+                else if (col1 == col2)
+                {
+                    Console.Write(lista1[(row1 + 1) % lartesia, col1] + "" + lista1[(row2 + 1) % lartesia, col2]);
+                }
+                else
+                {
+                    Console.Write(lista1[row1, col2] + "" + lista1[row2, col1]);
+
+                }
+                i++;
+            }
+        }
