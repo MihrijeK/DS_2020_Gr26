@@ -110,8 +110,55 @@ namespace morse-code
                     }
                 }
             
-           
+            }
+            
+        public static string EncodeChar(char letter)
+        {
+            string letterAsString = letter.ToString();
+            if (morse.Keys.Any(qelsi => qelsi.Equals(letterAsString, StringComparison.OrdinalIgnoreCase)))
+            {
+                return morse[letterAsString.ToLower()];
+            }
 
+            return "unsupported latin letter";
         }
+        
+        public static string Encode(string inputPhrase)
+        {   
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (char letter in inputPhrase)
+            {
+                stringBuilder.Append(EncodeChar(letter) + " ");
+            }
+            return stringBuilder.ToString();
+        }
+        
+        public static string Decode(string encodedPhrase)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            string[] encodedLetters = encodedPhrase.Split(' ');
+            foreach (string encodedLetter in encodedLetters)
+            {
+                stringBuilder.Append(DecodeLetter(encodedLetter));
+               
+            }
+            return stringBuilder.ToString();
+        }
+        
+         public static string DecodeLetter(string encodedLetter)
+        {
+            
+            foreach (KeyValuePair<string, string> rreshti in morse)
+            {
+                if (rreshti.Value.Equals(encodedLetter))
+                {
+                    return rreshti.Key;
+                }
+            }
+
+            return "unknown morse letter";
+        }
+           
     }
 }
