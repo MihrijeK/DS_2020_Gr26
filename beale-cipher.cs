@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
@@ -15,9 +18,16 @@ namespace ds
                 string libri = args[1];
 
                 Console.WriteLine(Enkriptimi(libri, plaintext));
-                Console.ReadLine();
+         
             }
+if (args[0].Equals("d"))
+            {
+                var text = args[1];
+                string decrypt = args[2];
 
+                Dekriptimi(decrypt, text);
+            }
+        }
 
 private static string Enkriptimi(string libri, string plaintext)
         {
@@ -59,9 +69,9 @@ private static string Enkriptimi(string libri, string plaintext)
                 
                 string[] strArray = strCh.Split(' ');
                 int k = random.Next(strArray.Length - 1);
-                ch1 += strArray[k].ToString() + "  ";
+                ch1 += strArray[k].ToString() + " ";
 
-                ch = ch1.Substring(0, ch1.Length - 2);
+                ch = ch1.Substring(0, ch1.Length - 1);
             }
            
             return ch;
