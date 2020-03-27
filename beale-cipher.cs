@@ -1,4 +1,25 @@
- private static string Enkriptimi(string libri, string plaintext)
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ds
+{
+    class beale
+    {
+        static void Main(string[] args)
+        {
+            if (args[0].Equals("e"))
+            {
+
+                string plaintext = args[2];
+                string libri = args[1];
+
+                Console.WriteLine(Enkriptimi(libri, plaintext));
+                Console.ReadLine();
+            }
+
+
+private static string Enkriptimi(string libri, string plaintext)
         {
     
             libri = File.ReadAllText(@"libri.txt");
@@ -73,3 +94,9 @@ public static void Dekriptimi(string ciphertext, string tex)
 
         }
 
+  }
+
+
+
+
+}
