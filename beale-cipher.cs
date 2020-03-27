@@ -45,5 +45,21 @@
            
             return ch;
         }
+public static void Dekriptimi(string ciphertext, string tex)
+{
+            tex = File.ReadAllText(@"libri.txt");
 
+            string[] t = ciphertext.Split(' ');
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  for (int i = 0; i < t.Length; i++)
+            {
+                st[i] = Dokument[(Int32.Parse(t[i])) - 1];
+            }
+            string cplain = "";
 
