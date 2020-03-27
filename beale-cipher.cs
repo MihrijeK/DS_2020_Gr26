@@ -4,9 +4,10 @@
             libri = File.ReadAllText(@"libri.txt");
             libri = libri.ToLower();
             
+            plaintext = plaintext.ToLower();
+            string[] Dokument = libri.Split(' ');
             
-            
-            
+              
             char[] plain = plaintext.ToCharArray();
             string ch = "";
             string ch1 = "";
@@ -20,13 +21,29 @@
                 if (plaintext[i] == ' ')
                 {
                     continue;
+                }     
+            
+                 for (int j = 0; j < Dokument.Length; j++)
+                {
+
+                    string str = Dokument[j];
+                    
+                    if (str.StartsWith(plain[i].ToString()))
+                    {
+                        
+                        strCh += j + 1 + " "; 
+
+                    }
                 }
-                
-                
-                
                 
                 string[] strArray = strCh.Split(' ');
                 int k = random.Next(strArray.Length - 1);
+                ch1 += strArray[k].ToString() + "  ";
 
+                ch = ch1.Substring(0, ch1.Length - 2);
+            }
+           
+            return ch;
+        }
 
 
