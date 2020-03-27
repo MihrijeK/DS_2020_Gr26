@@ -51,15 +51,25 @@ public static void Dekriptimi(string ciphertext, string tex)
 
             string[] t = ciphertext.Split(' ');
  
+            string[] st = new string[t.Length];
+
+            
+            string[] Dokument = tex.Split(' ');
  
- 
- 
- 
- 
- 
+
   for (int i = 0; i < t.Length; i++)
             {
                 st[i] = Dokument[(Int32.Parse(t[i])) - 1];
             }
             string cplain = "";
+ 
+ 
+  for (int l = 0; l < st.Length; l++)
+            {
+                
+                cplain += st[l].Substring(0, 1) + "";
+            }
+            Console.Write(cplain);
+
+        }
 
