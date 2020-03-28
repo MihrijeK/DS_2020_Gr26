@@ -38,36 +38,48 @@ namespace Playfair
             Console.ReadKey();
 
         }
-
-static List<char> tl = new List<char>();
-        static void initPlainText(string teksti)
+        
+      //krijojm nje liste(tl)
+     static List<char> tl = new List<char>();
+        //qelesin ktheje ne shkronja te vogla
+        static void initPlainText(string teksti) //krijojm nje funksion qe si parameter e ka tekstin
         {
-            teksti = teksti.ToUpper();
+            //te gjitha shkronjat e tekstit i kthejm ne shkronja te vogla
+            teksti = teksti.ToLower();
+            
+             //per secilen variabel te ne tekst:
             foreach (var t in teksti)
-            {
+            {   
+                //nese ajo variabel eshte e zbrazet vazhdo
                 if (t == ' ') continue;
-                else if (t == 'J') tl.Add('I');
+                //nese ajo variabel eshte J ather vendos I
+                else if (t == 'j') tl.Add('i');
+                 //shto t
                 tl.Add(t);
             }
         }
         static List<char> Krijoplaintekstiin()
-        {
+        {   //krijojm nje liste te re e emertojm lista1
             List<char> lista1 = new List<char>();
-
-
+            
+           
             for (int i = 0; i < tl.Count - 1; i++) //Krahason dy karaktere dhe nese jane te njejte karakterin e dyte e bene X
             {
                 if (tl[i] == tl[i + 1])
                 {
+                   
                     lista1.Add(tl[i]);
-                    lista1.Add('X');
+                    lista1.Add('x');
                     continue;
                 }
+                 //perndryshe shto karakterin e ardhshem
                 else lista1.Add(tl[i]);
 
             }
             lista1.Add(tl[tl.Count - 1]);
-
+            
+            ////nese gjatesia e listes eshte tek ateher shto X 
+            //p.sh kemi fjalen siguria ateher vendosim x dhe do fitojm siguriax
             if (lista1.Count % 2 == 1) lista1.Add('X');
 
             return lista1;
@@ -177,25 +189,27 @@ static List<char> tl = new List<char>();
                 i++;
             }
         }
+         //funksioni per dekriptim ku si parameter merret lista table dhe lista ciphertext
         static void Dekriptimi(List<char> table, List<char> plainText)
         {
-            int gjeresia = 5, lartesia = 5;
-            char[,] lista1 = new char[gjeresia, lartesia];
+            
+            char[,] lista1 = new char[5, 5];//matrica 5x5
 
             int z = 0;
             //Shendrro nje varg nje dimensional ne varg dydimensional
-            for (int i = 0; i < gjeresia * lartesia; i++)
+            for (int i = 0; i < 25; i++)
             {
-
-                lista1[i / gjeresia, i % lartesia] = table[z];
+                // (i/5)-rreshti, (i%5)-kolona
+                lista1[i / 5, i % 5] = table[z];
                 z++;
             }
 
             //Printon tabelen ne vargje dydimensionale
-            for (int i = 0; i < gjeresia * lartesia; i++)
+            for (int i = 0; i < 25; i++)
             {
+                //nese kemi arritur te kolona e fundit kalo ne rresht te ri
                 if (i % 5 == 0) Console.WriteLine();
-                Console.Write(lista1[i / gjeresia, i % lartesia] + "  ");
+                Console.Write(lista1[i / 5, i % 5] + "  ");
             }
 
             Console.WriteLine();
@@ -206,37 +220,45 @@ static List<char> tl = new List<char>();
                 char k2 = plainText[i + 1];//karakteri i dyte
                 int row1 = 0, row2 = -1, col1 = 0, col2 = -1;
 
-                for (int j = 0; j < gjeresia * lartesia; j++)
+                for (int j = 0; j <25; j++)
                 {
 
-                    if (lista1[j / gjeresia, j % lartesia] == k1) //  merr indeksin e karakterit te pare te rreshtit dhe kolones
+                    if (lista1[j / 5, j % 5] == k1) //  merr indeksin e karakterit te pare te rreshtit dhe kolones
                     {
-                        row1 = j / gjeresia;
-                        col1 = j % lartesia;
+                        row1 = j / 5;
+                        col1 = j % 5;
                     }
-                    if (lista1[j / gjeresia, j % lartesia] == k2) // merr indeksin e karakterit te dyte te rreshtit dhe kolones
+                    if (lista1[j / 5, j % 5] == k2) // merr indeksin e karakterit te dyte te rreshtit dhe kolones
                     {
-                        row2 = j / gjeresia;
-                        col2 = j % lartesia;
+                        row2 = j / 5;
+                        col2 = j % 5;
                     }
                 }
-                //Kontrollo nese karakteri i pare dhe i dyti jane ne te njejtin rresht
+               //Rregulla 1: nese karakteri i pare dhe i dyti jane ne te njejtin rresht
                 if (row1 == row2)
                 {
+                    // nese jemi ne kolonen 0 kalo ne kolonen e 5
                     if (col1 == 0) col1 = 5;
                     if (col2 == 0) col2 = 5;
+                    //merret elementi ne rreshtin e njejt por ne kolonen e meparshme te secilit karakter
                     Console.Write(lista1[row1, (col1 - 1) % 5] + "" + lista1[row2, (col2 - 1 % 5)]);
                 }
-                //Kontrollo nese karakteri i pare dhe i dyti jane ne te njejten kolone
+                
+               //Rregulla 2: nese karakteri i pare dhe i dyti jane ne te njejten kolone
                 else if (col1 == col2)
                 {
+                    // nese jemi ne rreshtin 0 kalo ne kolonen e 5
                     if (row1 == 0) row1 = 5;
                     if (row2 == 0) row2 = 5;
-
+                    
+                    ////merr elementin qe ndodhet ne rreshtin e  meparshem  por ne kolonen e njejt
                     Console.Write(lista1[((row1 - 1)) % 5, col1] + "" + lista1[(row2 - 1) % 5, col2]);
                 }
+                
+                  //Rregulla 3 : nese nuk jane as ne te njejtin rreshtin as ne te njejten kolone
                 else
                 {
+                    ////merr elementin qe ndodhet ne rreshtin e njejte por ne kolonen e karakterit tjeter
                     Console.Write(lista1[row1, col2] + "" + lista1[row2, col1]);
                 }
                 i++;
