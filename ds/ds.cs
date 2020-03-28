@@ -27,4 +27,22 @@ namespace ds
                     Console.WriteLine(Bealee.Enkriptimi(libri, plaintext));
                 }
 
+else if (args[1].Equals("d"))
+                {
+                    var text = args[2];
+                    string decrypt = args[3];
+                    Bealee.Dekriptimi(decrypt, text);
+                }
+            }
+            if (args[0].Equals("Playfair"))
+            {
+                Playfaiir playfair = new Playfaiir();
 
+                if (args[1].Equals("e"))
+                {
+                    string plainText = args[3];
+                    Playfaiir.initPlainText(plainText);
+
+                    string qelesi = args[2];
+                    Playfaiir.Enkriptimi(Playfaiir.Krijotabelen(qelesi), Playfaiir.Krijoplaintekstiin());
+                }
