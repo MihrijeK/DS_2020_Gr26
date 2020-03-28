@@ -8,36 +8,7 @@ namespace Playfair
 {
     class Playfair
     {
-       public static void Main(string[] args)
-        {
-
-
-
-            if (args[0].Equals("e"))
-            {
-                string plainText = args[2];
-                initPlainText(plainText);
-
-                string qelesi = args[1];
-
-
-                Enkriptimi(Krijotabelen(qelesi), Krijoplaintekstiin());
-            }
-            if (args[0].Equals("d"))
-            {
-                string plainText = args[2];
-                initPlainText(plainText);
-
-                string qelesi = args[1];
-
-
-
-                Dekriptimi(Krijotabelen(qelesi), Krijoplaintekstiin());
-            }
-            
-            Console.ReadKey();
-
-        }
+      
         
       //krijojm nje liste(tl)
      static List<char> tl = new List<char>();
