@@ -45,4 +45,18 @@ else if (args[1].Equals("d"))
 
                     string qelesi = args[2];
                     Playfaiir.Enkriptimi(Playfaiir.Krijotabelen(qelesi), Playfaiir.Krijoplaintekstiin());
+                } else if (args[1].Equals("d"))
+                {
+                    string plainText = args[3];
+                    Playfaiir.initPlainText(plainText);
+
+                    string qelesi = args[2];
+
+
+
+                    Playfaiir.Dekriptimi(Playfaiir.Krijotabelen(qelesi), Playfaiir.Krijoplaintekstiin());
                 }
+
+                Console.ReadKey();
+
+            }
