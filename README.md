@@ -17,6 +17,8 @@ Morse code is a method of transmitting text information as a series of on-off to
 The algorithm is very simple.Every character is substituted by a series of ‘dots’ and ‘dashes’ or sometimes just singular ‘dot’ or ‘dash’ and vice versa.
 Every text string is converted into the series of dots and dashes. For this every character is converted into its Morse code and appended in encoded message.
 Encode a message by replacing each letter by its code symbol. Then decode the message using Morse code. Make sure you use a delimiter symbol between coded letters.
+# Morse-Code
+Dictionary
 
 --> Some References : https://www.geeksforgeeks.org/morse-code/,
                       https://www.braingle.com/brainteasers/codes/beale.php,
