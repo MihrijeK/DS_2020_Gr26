@@ -3,39 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.IO;
 
 namespace morse-code
 {
     class Program
     {
-       public static Dictionary<string, string> morse = new Dictionary<string, string>()
+       public static Dictionary<string, string> MorseDictionary = new Dictionary<string, string>()
         {
-            {"A", ".-"},
-            {"B", "-..."},
-            {"C", "-.-."},
-            {"D", "-.."},
-            {"E", "."},
-            {"F", "..-."},
-            {"G", "--."},
-            {"H", "...."},
-            {"I", ".."},
-            {"J", ".---"},
-            {"K", "-.-"},
-            {"L", ".-.."},
-            {"M", "--"},
-            {"N", "-."},
-            {"O", "---"},
-            {"P", ".--."},
-            {"Q", "--.-"},
-            {"R", ".-."},
-            {"S", "..."},
-            {"T", "-"},
-            {"U", "..-"},
-            {"V", "...-"},
-            {"W", ".--"},
-            {"X", "-..-"},
-            {"Y", "-.--"},
-            {"Z", "--.."},
+           //Alfabeti
+            {"a", ".-"},
+            {"b", "-..."},
+            {"c", "-.-."},
+            {"d", "-.."},
+            {"e", "."},
+            {"f", "..-."},
+            {"g", "--."},
+            {"h", "...."},
+            {"i", ".."},
+            {"j", ".---"},
+            {"k", "-.-"},
+            {"l", ".-.."},
+            {"m", "--"},
+            {"n", "-."},
+            {"o", "---"},
+            {"p", ".--."},
+            {"q", "--.-"},
+            {"e", ".-."},
+            {"s", "..."},
+            {"t", "-"},
+            {"u", "..-"},
+            {"v", "...-"},
+            {"w", ".--"},
+            {"x", "-..-"},
+            {"y", "-.--"},
+            {"z", "--.."},
+           //Numrat
             {"0", "-----"},
             {"1", ".----"},
             {"2", "..---"},
@@ -46,118 +51,154 @@ namespace morse-code
             {"7", "--..."},
             {"8", "---.."},
             {"9", "----."},
+           //Formatimi
             {" ", "/" },
-              };
+           //Shenjat e pikesimit
+            { ".", ".-.-.-" },
+            { ",", "--..--" },
+            { "?", "..--.." },
+            { "'", ".----." },
+            { "!", "-.-.--" },
+            { "/", "-..-." },
+            { "(", "-.--." },
+            { ")", "-.--.-" },
+            { "&", ".-..." },
+            { ":", "---..." },
+            { ";", "-.-.-." },
+            { "=", "-...-" },
+            { "+", ".-.-." },
+            { "-", "-....-" },
+            { "_", "..--.-" },
+            { "$", "...-..-" },
+            { "@", ".--.-." }, 
+        };
         
-
-        static void Main(string[] args)
+        public static string KtheCharNeMorse(char c)
         {
-           
-            if (args[0].Equals("decode"))
+            string perkthimi = " ";
+            string s = c.ToString().ToLower();
+            if (MorseDictionary.ContainsKey(s))
             {
-                string plaintext = args[1];
-                string output = " ";
-
-                // Nese plaintexti permban se paku nje prej shkronjave te njohura morse
-                if (morse.Values.Any(morseLetter => plaintexti.Contains(morseLetter)))
-                {
-                    output = Decode(plaintexti);
-                }
-                Console.WriteLine(output);
-            Console.WriteLine();
-            Console.ReadKey();
-             }
-             else if (args[0].Equals("encode"))
-            {
-                string plaintexti = args[1];
-                
-
-                string output;
-
-                output = Encode(plaintexti);
-
-
-                Console.WriteLine(output);
-
-                Console.WriteLine();
-                Console.ReadKey();
+                perkthimi = MorseDictionary[s];
             }
-            else if (args[0].Equals("beep"))
+            perkthimi +=" ";
+            
+            return perkthimi;
+        }
+        
+        public static string KtheMorseNeChar(string s)
+        {   
+            string perkthimi = " ";
+          
+            foreach (KeyValuePair<string, string> rreshti in MorseDictionary)
             {
-                string plaintexti = args[1];
-                int tone = 415; //G# note
-                int dotDuration = 300; //The duration of one time unit
-                int dashDuration = dotDuration * 3; //A dash is 3 time units
-                int charSpaceDuration = dotDuration * 3; //The pause between characters is 3 time units
-                int wordSpaceDuration = dotDuration * 7; //The pause between words is 7 time units
-                foreach (char c in plaintexti)
+                if(rreshti.Value.Equals(s))
+                {
+                    return perkthimi = rreshti.Key.ToString();
+                }
+            }
+            return perkthimi;
+        }
+    }        
+    
+    public class Code
+    {   
+        //Vlera hyrese prej perdoruesit
+        private string Input;
+        
+        //Ruan perkthimin e Input-it
+        private string Perkthimi;
+        private string Argumentet;
+        
+        public Code(string input)
+        {
+            this.Input = input;
+        }
+        
+        public string GetInput()
+        {
+            return input;
+        }
+        
+        public string Perkthe(string argumentet)
+        {
+            this.Argumentet = argumentet;
+            //Kontrollo nese hyrjet jane Valide perndryshe jep detaje se si duhet te jete ajo
+            if (Regex.Matches(Input, @"[a-zA-Z0-9.,?'!/()$@_+-=;:&]").Count != 0)
+            {
+                if (Argumentet == "encode")
+                {
+                    return KtheNeMorse();
+                }
+                else if (Argumentet == "decode")
+                    return KtheNeLatin();
+            }
+            else
+            {
+                Console.WriteLine("Keni jepur karaktere jo valide. Teksti juaj duhet te permbaje ndonjeren prej Shkronjave te alfabetit Latin ose numer ose Karakteret : .,?'!/()$@_+-=;:&");
+            }
+            return argumentet;
+        }
+        public string KtheNeLatin()
+        {   //Kthen vleren hyrese ne shkronja latine,numra,shenja te pikesimit ose " " hapsire 
+            string[] ndarjaEShkronjave = Input.Split(' ');
+            foreach (string s in ndarjaEShkronjave)
+            {
+                Perkthimi += Translator.KtheCharNeMorse(s);
+            }
+            return Perkthimi;
+        }
+        
+         public string KtheNeMorse()
+        {
+            //Kthen vleren hyrese ne Morse Kod
+            foreach (char c in Input)
+            {
+                Perkthimi += Translator.KtheMorseNeChar(c);
+            }
+
+            return Perkthimi.Trim();
+        }
+        
+        public void audio(string input)
+        {
+
+            try
+            {
+                this.Input = input;
+                int frekuenca = 415;
+                int dotDuration = 300; //Kohëzgjatja e nje "."
+                int dashDuration = dotDuration * 3; //Kohëzgjatja e nje "-"
+                int charSpaceDuration = dotDuration * 3; //Pauza mes karaktereve
+                int wordSpaceDuration = dotDuration * 7; //Pauza mes fjaleve
+                foreach (char c in Input)
                 {
                     if (c == '.')
                     {
-                        Console.Beep(tone, dotDuration);
+                        Console.Beep(frekuenca, dotDuration);
                     }
                     else if (c == '-')
                     {
-                        Console.Beep(tone, dashDuration);
+                        Console.Beep(frekuenca, dashDuration);
                     }
                     else if (c == ' ')
                     {
-                        System.Threading.Thread.Sleep(charSpaceDuration);
+                        Thread.Sleep(charSpaceDuration);
                     }
                     else if (c == '/')
                     {
-                        System.Threading.Thread.Sleep(wordSpaceDuration);
+                        Thread.Sleep(wordSpaceDuration);
                     }
                 }
-            
             }
-            
-        public static string EncodeChar(char letter)
-        {
-            string letterAsString = letter.ToString();
-            if (morse.Keys.Any(qelsi => qelsi.Equals(letterAsString, StringComparison.OrdinalIgnoreCase)))
+            catch (System.PlatformNotSupportedException ex)
             {
-                return morse[letterAsString.ToLower()];
+                Console.WriteLine("ERROR: Code.Play() : " + ex.Message);
             }
-
-            return "unsupported latin letter";
-        }
-        
-        public static string Encode(string inputPhrase)
-        {   
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (char letter in inputPhrase)
+            catch (Exception ex)
             {
-                stringBuilder.Append(EncodeChar(letter) + " ");
+                Console.WriteLine(ex.Message);
             }
-            return stringBuilder.ToString();
-        }
-        
-        public static string Decode(string encodedPhrase)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-
-            string[] encodedLetters = encodedPhrase.Split(' ');
-            foreach (string encodedLetter in encodedLetters)
-            {
-                stringBuilder.Append(DecodeLetter(encodedLetter));
-               
-            }
-            return stringBuilder.ToString();
-        }
-        
-         public static string DecodeLetter(string encodedLetter)
-        {
-            
-            foreach (KeyValuePair<string, string> rreshti in morse)
-            {
-                if (rreshti.Value.Equals(encodedLetter))
-                {
-                    return rreshti.Key;
-                }
-            }
-
-            return "unknown morse letter";
         }
            
     }
