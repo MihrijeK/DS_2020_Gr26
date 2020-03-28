@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Playfair
 {
-    class Program
+    class Playfair
     {
        public static void Main(string[] args)
         {
