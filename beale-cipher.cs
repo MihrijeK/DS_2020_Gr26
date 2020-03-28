@@ -28,23 +28,32 @@ if (args[0].Equals("d"))
                 Dekriptimi(decrypt, text);
             }
         }
-
-private static string Enkriptimi(string libri, string plaintext)
+ //funksioni ne baze te cilit e enkriptojm mesazhin qe duam ta fshehim(plaintext) duke u bazuar ne nje liber(text).
+ private static string Enkriptimi(string libri, string plaintext)
         {
-    
+            // per lexim  te file ( libri.txt)
             libri = File.ReadAllText(@"libri.txt");
+     
+            //me i kthy te gjitha shkronjat e librit ne shkronja te vogla
             libri = libri.ToLower();
             
+            //me i kthy te gjitha shkronjat e plaintext ne shkronja te vogla
             plaintext = plaintext.ToLower();
+            
+           // //me i nda secilen karakter te librit me hapsira
             string[] Dokument = libri.Split(' ');
             
-              
+            ////  perdorimi i  metodes ToCharArray()  per kopjimin e karaktereve  nga string plaintext
+            //ne nje koleksion te Unicode character.
             char[] plain = plaintext.ToCharArray();
             string ch = "";
             string ch1 = "";
-
+ 
+            //Random class mundeson gjenerimin e  nje numri random
             Random random = new Random();
-
+ 
+            ////krijimi i nje for loop
+            //ku i merr vleren deri tek gjatesia e plaintext
             for (int i = 0; i < plaintext.Length; i++)
             {
                 string strCh = "";
@@ -68,9 +77,14 @@ private static string Enkriptimi(string libri, string plaintext)
                 }
                 
                 string[] strArray = strCh.Split(' ');
+                
+                //k merr nje numer random deri te gjatesia e tekstit
                 int k = random.Next(strArray.Length - 1);
+                
+                //strArray merr indeksin k(random) dhe e kthen ne string
                 ch1 += strArray[k].ToString() + " ";
-
+                
+                //ch e mbushim me vleren ch1 nga 0 deri te gjatesia ch1.Length-1
                 ch = ch1.Substring(0, ch1.Length - 1);
             }
            
