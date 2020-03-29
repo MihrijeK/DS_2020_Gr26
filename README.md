@@ -18,9 +18,10 @@ Komanda Playfair bazohet në matricën 5x5.Në atë matricë e vendosim alfabeti
 2.Nëse ato jane në kolona të njëjta atëherë merret el. i rreshtit pasues por i kolonës të njëjtë.
 3.Nëse ato nuk janë as në kolona e as në rreshta të njejtë atëherë merret el. i rreshtit të njëjtë por ne kolonën e karakterit tjetër.
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
+
 ![](Images/Playfair.png)
+Gjenerimi i tabeles ne baze te keyword per piket shtese
 # --> Referencat : 
- https://www.geeksforgeeks.org , 
- https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7 , 
- https://searchsecurity.techtarget.com/definition/cryptography.
-                      
+ Per komanden Morse orientimi ka qene kryesisht ne keto dy linqe : https://www.geeksforgeeks.org/morse-code-implementation/ ,
+ https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7.
+  Per komandat Beale dhe Playfair kryesisht jemi orientuar tek keto linqe : https://www.reddit.com/r/dailyprogrammer/ ,  https://www.geeksforgeeks.org/csharp-programming-language/                   
