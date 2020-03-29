@@ -28,6 +28,7 @@ namespace ds
                          else
                          {
                               Console.WriteLine("Keni dhene komanda jo valide.");
+                              Environment.Exit(1);
                          }
                          
                     }
@@ -48,6 +49,7 @@ namespace ds
                 else 
                    {
                     Console.WriteLine("Ju lutem shenoni 4 argumente:args[0]-Beale,args[1]-e/d,args[2]-libri.txt,args[3]-plaintext/ciphertext");
+                    Environment.Exit(1);
                    }
             }
             if (args[0].Equals("Playfair"))
@@ -82,6 +84,7 @@ namespace ds
               else
               {
                   Console.WriteLine("Keni dhene komanda jo valide.");
+                  Environment.Exit(1);
               }
            }             
                 Console.ReadKey();
@@ -89,25 +92,33 @@ namespace ds
                 else
                 {
                     Console.WriteLine("Ju lutem shenoni 4 argumente:args[0]-Playfair,args[1]-e/d,args[2]-qelesi,args[3]-plaintext/ciphertext");
+                    Environment.Exit(1);
                 }
             }
             if (args[0].Equals("morse-code"))
             {
-               Fjalori morse = new Fjalori();
+               if (args.Length == 3)
+              {    
+               Translator morse = new Translator();
 
                 string input = args[2];
                 string encode_decode = args[1];
-                Morse m = new Morse(input);
+                Code m = new Code(input);
                 // Metoda audio() perkrahet vetem ne Windows
                 if (encode_decode == "audio")
                 {
-                    m.audio(input);
+                    m.Audio(input);
                 }
                 else
                 {
                     Console.WriteLine("{1}", m.GetInput(), m.Perkthe(encode_decode));
             
                 }
+              }else
+              {
+                   Console.WriteLine("Ju lutem shenoni 3 argumente:args[0]-morse-code,args[1]-encode/decode,args[2]-tekst/numra/shenja/./-");
+                   Environment.Exit(1);
+              }
             }
         }
     }
