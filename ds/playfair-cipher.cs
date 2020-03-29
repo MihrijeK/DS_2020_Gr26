@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Playfair
+namespace ds
 {
     class Playfair
     {
-      
-        
       //krijojm nje liste(tl)
      static List<char> tl = new List<char>();
         //qelesin ktheje ne shkronja te vogla
@@ -244,7 +242,6 @@ namespace Playfair
                 i++;
             }
         }
-
     }
 }
 
