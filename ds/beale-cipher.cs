@@ -7,10 +7,10 @@ using System.IO;
 
 namespace ds
 {
-    class beale
+   public class Beale
     {
         //funksioni ne baze te cilit e enkriptojm mesazhin qe duam ta fshehim(plaintext) duke u bazuar ne nje liber(text).
-         private static string Enkriptimi(string libri, string plaintext)
+         public static string Enkriptimi(string libri, string plaintext)
         {
             // per lexim  te file ( libri.txt)
             libri = File.ReadAllText(@"libri.txt");
