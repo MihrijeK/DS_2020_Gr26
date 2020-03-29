@@ -12,7 +12,7 @@ Dictionary
 Beale cipher është një algoritëm qe e shfrytëzon një tekst dokument si libër.Me këtë metodë zëvendësohet cdo shkronjë në mesazhin
 sekret me indeksin e një  fjale në libër që fillon me atë shkronjë.Gjithashtu duhet pasur kujdes që per shkaqe sigurie mos të enkriptohet shkronja e njejtë me të njëjtin numer.Ndërsa nëse duam ta dekpritojm mesazhin  sekret atëherë  numri në atë mesazh paraqet indeksin e një fjale në  libër dhe marrim shkronjën e parë të saj.
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
-
+![](Images/Beale.png)
 # 2.Komanda Morse Code
 Komanda Morse është një kod që përdoret për të koduar mesazhe që përbëhen nga shkronja dhe shifra. Cdo shkronje përbëhet nga një seri . dhe _. 
 Ruajtja e shkronjave dhe vlerave perkatese te tyre ne Morse Code eshte bere duke krijuar objektin MorseDictionary ne kaudaer te klases Dictionary. Per secilin funksion eshte dhene pershikrimi si koment ne kuader te programit.
