@@ -18,22 +18,41 @@ namespace ds
 
             if (args[0].Equals("Beale"))
             {
-
-                Beale beale = new Beale();
-
-                if (args[1].Equals("encrypt"))
+                  if (args.Length == 4)
                 {
-                    string plaintext = args[3];
-                    string libri = args[2];
-                    Console.WriteLine(Beale.Enkriptimi(libri, plaintext));
-                }
+                     Beale beale = new Beale();
 
-               else if (args[1].Equals("decrypt"))
-                {
+                     if (args[1].Equals("e"))
+                   {
+                         string plaintext = args[3];
+                         string libri = args[2];
+                         if (Regex.Matches(plaintext, @"[a-zA-Z]").Count != 0)
+                         {
+                            Console.WriteLine(Beale.Enkriptimi(libri, plaintext));
+                         }
+                         else
+                         {
+                              Console.WriteLine("Keni dhene komanda jo valide.");
+                         }
+                         
+                     }
+                    else if (args[1].Equals("d"))
+                  {
                     var text = args[2];
                     string decrypt = args[3];
-                    Beale.Dekriptimi(decrypt, text);
-                }
+                   if (Regex.Matches(decrypt, @"[0-9]").Count != 0)
+                   {
+                        Beale.Dekriptimi(decrypt, text);
+                   }
+                   else
+                   {
+                       Console.WriteLine("Keni dhene komanda jo valide.");
+                   }
+                 }
+               }
+                else{
+                    Console.WriteLine("Ju lutem shenoni 4 argumente:args[0]-Beale,args[1]-e/d,args[2]-libri.txt,args[3]-plaintext/ciphertext");
+                    }
             }
             if (args[0].Equals("Playfair"))
             {
