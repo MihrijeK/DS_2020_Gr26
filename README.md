@@ -31,8 +31,9 @@ Shkrimi i argumenteve ne menyre adekuate behet siq eshte paraqitur me poshte pra
 Kerkesen shtese audio e kemi bere te ekzekutohet ne momentin kur si argument eshte "audio" dhe teksti hyres eshte ne Morse Code atehere ndegjohet ajo vlere hyrese si nga makina Morse.
 # 3.Komanda Playfair
 Komanda Playfair
---> Some References : https://www.geeksforgeeks.org,
-                      https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7.2
-                      https://searchsecurity.techtarget.com/definition/cryptography
-                      http://rumkin.com/tools/cipher/playfair.php
+# --> Some References : 
+ https://www.geeksforgeeks.org
+ https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7.2
+ https://searchsecurity.techtarget.com/definition/cryptography
+ http://rumkin.com/tools/cipher/playfair.php
                       
