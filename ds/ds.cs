@@ -1,6 +1,3 @@
-using Playfair;
-using ds;
-using Beale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +11,6 @@ namespace ds
     {
         static void Main(string[] args)
         {
-
-
             if (args[0].Equals("Beale"))
             {
                   if (args.Length == 4)
@@ -35,11 +30,11 @@ namespace ds
                               Console.WriteLine("Keni dhene komanda jo valide.");
                          }
                          
-                     }
-                    else if (args[1].Equals("d"))
-                  {
-                    var text = args[2];
-                    string decrypt = args[3];
+                    }
+                   else if (args[1].Equals("d"))
+                   {
+                   var text = args[2];
+                   string decrypt = args[3];
                    if (Regex.Matches(decrypt, @"[0-9]").Count != 0)
                    {
                         Beale.Dekriptimi(decrypt, text);
@@ -50,35 +45,51 @@ namespace ds
                    }
                  }
                }
-                else{
+                else 
+                   {
                     Console.WriteLine("Ju lutem shenoni 4 argumente:args[0]-Beale,args[1]-e/d,args[2]-libri.txt,args[3]-plaintext/ciphertext");
-                    }
+                   }
             }
             if (args[0].Equals("Playfair"))
             {
-                Playfair playfair = new Playfair();
-
-                if (args[1].Equals("encrypt"))
+              Playfair playfair = new Playfair();
+              if (args.Length == 4)
+              {
+                if (args[1].Equals("e"))
                 {
                     string plainText = args[3];
                     Playfair.initPlainText(plainText);
-
                     string qelesi = args[2];
+                    if ((Regex.Matches(plainText, @"[a-zA-Z]").Count != 0) && (Regex.Matches(qelesi, @"[a-zA-Z]").Count != 0))
+                  {
                     Playfair.Enkriptimi(Playfair.Krijotabelen(qelesi), Playfair.Krijoplaintekstiin());
-                } else if (args[1].Equals("decrypt"))
+                  } 
+                   else
+                   {
+                      Console.WriteLine("Keni dhene komanda jo valide.");
+                   }
+                }
+                    else if (args[1].Equals("d"))
                 {
-                    string plainText = args[3];
-                    Playfair.initPlainText(plainText);
-
+                    string cipherText = args[3];
+                    Playfair.initPlainText(cipherText);
                     string qelesi = args[2];
 
-
-
-                    Playfair.Dekriptimi(Playfair.Krijotabelen(qelesi), Playfair.Krijoplaintekstiin());
-                }
-
+              if ((Regex.Matches(cipherText, @"[a-zA-Z]").Count != 0) && (Regex.Matches(qelesi, @"[a-zA-Z]").Count != 0))
+              {
+              Playfair.Dekriptimi(Playfair.Krijotabelen(qelesi), Playfair.Krijoplaintekstiin());
+              }
+              else
+              {
+                  Console.WriteLine("Keni dhene komanda jo valide.");
+              }
+           }             
                 Console.ReadKey();
-
+              }
+                else
+                {
+                    Console.WriteLine("Ju lutem shenoni 4 argumente:args[0]-Playfair,args[1]-e/d,args[2]-qelesi,args[3]-plaintext/ciphertext");
+                }
             }
             if (args[0].Equals("morse-code"))
             {
