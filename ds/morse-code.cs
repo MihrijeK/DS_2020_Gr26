@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ds
 {
-    public class Fjalori
+    public class Translator
     {
        public static Dictionary<string, string> MorseDictionary = new Dictionary<string, string>()
         {
@@ -29,7 +28,7 @@ namespace ds
             {"o", "---"},
             {"p", ".--."},
             {"q", "--.-"},
-            {"e", ".-."},
+            {"r", ".-."},
             {"s", "..."},
             {"t", "-"},
             {"u", "..-"},
@@ -81,7 +80,7 @@ namespace ds
             {
                 perkthimi = MorseDictionary[s];
             }
-            perkthimi +=" ";
+            perkthimi += " ";
             
             return perkthimi;
         }
@@ -102,7 +101,7 @@ namespace ds
         }
     }        
     
-    public class Morse
+    public class Code
     {   
         //Vlera hyrese prej perdoruesit
         private string Input;
@@ -111,7 +110,7 @@ namespace ds
         private string Perkthimi;
         private string Argumentet;
         //Konstruktori
-        public Morse(string input)
+        public Code(string input)
         {
             this.Input = input;
         }
@@ -137,6 +136,7 @@ namespace ds
             else
             {
                 Console.WriteLine("Keni jepur karaktere jo valide. Teksti juaj duhet te permbaje ndonjeren prej Shkronjave te alfabetit Latin ose numer ose Karakteret : .,?'!/()$@_+-=;:&");
+                Environment.Exit(0);
             }
             return argumentet;
          }
@@ -146,7 +146,7 @@ namespace ds
             //Kthen vleren hyrese ne Morse Kod duke shikuar karakter per karakter te dhene ne hyrje
             foreach (char c in Input)
             {
-                Perkthimi += Fjalori.KtheCharNeMorse(c);
+                Perkthimi += Translator.KtheCharNeMorse(c);
             }
 
             return Perkthimi.Trim();
@@ -156,7 +156,7 @@ namespace ds
              string[] ndarjaEShkronjave = Input.Split();
              foreach (string s in ndarjaEShkronjave)
              {
-                 Perkthimi += Fjalori.KtheMorseNeChar(s);
+                 Perkthimi += Translator.KtheMorseNeChar(s);
              }
              return Perkthimi;
          }
