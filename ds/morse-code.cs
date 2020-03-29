@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ds
 {
-    class Fjalori
+    public class Fjalori
     {
        public static Dictionary<string, string> MorseDictionary = new Dictionary<string, string>()
         {
@@ -70,7 +70,9 @@ namespace ds
             { "$", "...-..-" },
             { "@", ".--.-." }, 
         };
-        
+        //Me ane te keti funksioni Kthejm karakteret ne Morse si varg i . dhe -, pasi qe ne fjalorin MorseDictionary jane te ruajtura shkronjat dhe shifrat si TKey
+        //ndersa vlerat perkatese ne Morse per to jane ruajtur si TValue
+        //Per vleren hyrese kontrollojme nese MorseDictionary permban ate vlere nese po atehere ate vlere e ruajme ne variablen perkthimi 
         public static string KtheCharNeMorse(char c)
         {
             string perkthimi = " ";
@@ -83,7 +85,8 @@ namespace ds
             
             return perkthimi;
         }
-        
+        //Me ane te keti funksioni kthejm vleren hyrese te dhene si Morse ne Karaktere perkatese, kontrollojme ne cdo rresht te MorseDictionary
+        //Nese hyrja perputhet me ndonjeren prej vlerave ne MorseDictionary atehere kthejme qelsin ne rastin tone karakterin perkates
         public static string KtheMorseNeChar(string s)
         {   
             string perkthimi = " ";
@@ -112,12 +115,12 @@ namespace ds
         {
             this.Input = input;
         }
-        
+        //Kthen vleren hyrese para perkthimit
         public string GetInput()
         {
-            return input;
+            return Input;
         }
-        
+        // Me ane te keti funksoni kontrollojme nese hyrjet jane valide si dhe varsisht nga argumenti qe jepet behet enkodimi ose dekodimi i vleres hyrese
         public string Perkthe(string argumentet)
         {
             this.Argumentet = argumentet;
@@ -137,30 +140,32 @@ namespace ds
             }
             return argumentet;
          }
-        public string KtheNeLatin()
-        {   //Kthen vleren hyrese ne shkronja latine,numra,shenja te pikesimit ose " " hapsire 
-            string[] ndarjaEShkronjave = Input.Split(' ');
-            foreach (string s in ndarjaEShkronjave)
-            {
-                Perkthimi += Fjalori.KtheCharNeMorse(s);
-            }
-            return Perkthimi;
-        }
         
-         public string KtheNeMorse()
+        public string KtheNeMorse()
         {
-            //Kthen vleren hyrese ne Morse Kod per cdo karakter te dhene ne hyrje
+            //Kthen vleren hyrese ne Morse Kod duke shikuar karakter per karakter te dhene ne hyrje
             foreach (char c in Input)
             {
-                Perkthimi += Fjalori.KtheMorseNeChar(c);
+                Perkthimi += Fjalori.KtheCharNeMorse(c);
             }
 
             return Perkthimi.Trim();
          }
+         public string KtheNeLatin()
+         {   //Kthen vleren hyrese ne shkronja latine,numra,shenja te pikesimit ose " " hapsire 
+             string[] ndarjaEShkronjave = Input.Split();
+             foreach (string s in ndarjaEShkronjave)
+             {
+                 Perkthimi += Fjalori.KtheMorseNeChar(s);
+             }
+             return Perkthimi;
+         }
         
-          public void audio(string input)
-          {
-
+          public void Audio(string input)
+          { // Me ane te keti funksioni mundesojme degjimin e vleres hyrese qe duhet te jepet me ane te . dhe - nese karakteri perkates pra eshte . ose -
+            // Atehere ndegjohet zeri qe mundesohet me ane te Beep() qe do te jete me frekuence dhe kohezgjatja  te zaktuar
+            //Perndryshe nese ne hyrje kemi Space(qe karakterizon ndarje te karaktereve) apo /(qe karakterizon ndarje te fjaleve)p.s"takohemi neser" atehere kjo hapsira mes fjaleve ne Morse paraqitet si "/" dhe do kete pauze 
+            //Si dhe kontrollohet nese mund te egzekutohet ose jo me ane te try catch
             try
             {
                 this.Input = input;
@@ -189,13 +194,9 @@ namespace ds
                     }
                 }
             }
-            catch (System.PlatformNotSupportedException ex)
+            catch (Exception e)
             {
-                Console.WriteLine("ERROR: Morse.Audio() : " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Kontrollo argumentin e dhene ai duhet te permbaje . ose - per t'u degjuar. ",e);
             }
         } 
     }
