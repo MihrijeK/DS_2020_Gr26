@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ds
 {
-    class Playfair
+   public class Playfair
     {
       //krijojm nje liste(tl)
-     static List<char> tl = new List<char>();
+    public static List<char> tl = new List<char>();
         //qelesin ktheje ne shkronja te vogla
-        static void initPlainText(string teksti) //krijojm nje funksion qe si parameter e ka tekstin
+    public static void initPlainText(string teksti) //krijojm nje funksion qe si parameter e ka tekstin
         {
             //te gjitha shkronjat e tekstit i kthejm ne shkronja te vogla
             teksti = teksti.ToLower();
@@ -27,7 +27,7 @@ namespace ds
                 tl.Add(t);
             }
         }
-        static List<char> Krijoplaintekstiin()
+      public static List<char> Krijoplaintekstiin()
         {   //krijojm nje liste te re e emertojm lista1
             List<char> lista1 = new List<char>();
             
@@ -53,7 +53,7 @@ namespace ds
 
             return lista1;
         }
-        static List<char> merrAlfabetin()
+      public static List<char> merrAlfabetin()
         {
             List<char> lista1 = new List<char>();
             //marrin alfabetin nga shkronja A ne Z
@@ -66,7 +66,7 @@ namespace ds
             return lista1; //kthe listen e fituar
         }
         //e kemi kriju edhe tabelen per piket shtese
-        static List<char> Krijotabelen(string qelesi)
+       public static List<char> Krijotabelen(string qelesi)
         { //qelesin ktheje ne shkronja te vogla
             qelesi = qelesi.ToLower();
              //krijo nje liste
@@ -95,7 +95,7 @@ namespace ds
             return lista1;
         }
         //krijojm nje funksion per enkriptim qe si parameter dy lista:listen table dhe listen plaintext
-        static void Enkriptimi(List<char> table, List<char> plainText)
+       public static void Enkriptimi(List<char> table, List<char> plainText)
         {
             
             char[,] lista1 = new char[5, 5];//krijojm  matricen  5x5
@@ -168,7 +168,7 @@ namespace ds
             }
         }
          //funksioni per dekriptim ku si parameter merret lista table dhe lista ciphertext
-        static void Dekriptimi(List<char> table, List<char> ciphertext)
+      public static void Dekriptimi(List<char> table, List<char> ciphertext)
         {
             
             char[,] lista1 = new char[5, 5];//matrica 5x5
