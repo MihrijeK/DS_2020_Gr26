@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.IO;
+using System.Threading.Tasks;
 
-namespace morse-code
+namespace ds
 {
-    class Program
+    class Fjalori
     {
        public static Dictionary<string, string> MorseDictionary = new Dictionary<string, string>()
         {
@@ -101,7 +99,7 @@ namespace morse-code
         }
     }        
     
-    public class Code
+    public class Morse
     {   
         //Vlera hyrese prej perdoruesit
         private string Input;
@@ -109,8 +107,8 @@ namespace morse-code
         //Ruan perkthimin e Input-it
         private string Perkthimi;
         private string Argumentet;
-        
-        public Code(string input)
+        //Konstruktori
+        public Morse(string input)
         {
             this.Input = input;
         }
@@ -138,30 +136,30 @@ namespace morse-code
                 Console.WriteLine("Keni jepur karaktere jo valide. Teksti juaj duhet te permbaje ndonjeren prej Shkronjave te alfabetit Latin ose numer ose Karakteret : .,?'!/()$@_+-=;:&");
             }
             return argumentet;
-        }
+         }
         public string KtheNeLatin()
         {   //Kthen vleren hyrese ne shkronja latine,numra,shenja te pikesimit ose " " hapsire 
             string[] ndarjaEShkronjave = Input.Split(' ');
             foreach (string s in ndarjaEShkronjave)
             {
-                Perkthimi += Translator.KtheCharNeMorse(s);
+                Perkthimi += Fjalori.KtheCharNeMorse(s);
             }
             return Perkthimi;
         }
         
          public string KtheNeMorse()
         {
-            //Kthen vleren hyrese ne Morse Kod
+            //Kthen vleren hyrese ne Morse Kod per cdo karakter te dhene ne hyrje
             foreach (char c in Input)
             {
-                Perkthimi += Translator.KtheMorseNeChar(c);
+                Perkthimi += Fjalori.KtheMorseNeChar(c);
             }
 
             return Perkthimi.Trim();
-        }
+         }
         
-        public void audio(string input)
-        {
+          public void audio(string input)
+          {
 
             try
             {
@@ -193,13 +191,12 @@ namespace morse-code
             }
             catch (System.PlatformNotSupportedException ex)
             {
-                Console.WriteLine("ERROR: Code.Play() : " + ex.Message);
+                Console.WriteLine("ERROR: Morse.Audio() : " + ex.Message);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-           
+        } 
     }
 }
