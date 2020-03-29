@@ -26,7 +26,7 @@ Komanda Beale
 Komanda Morse është një kod që përdoret për të koduar mesazhe që përbëhen nga shkronja dhe shifra. Cdo shkronje përbëhet nga një seri . dhe _. 
 Ruajtja e shkronjave dhe vlerave perkatese te tyre ne Morse Code eshte bere duke krijuar objektin MorseDictionary ne kaudaer te klases Dictionary. Per secilin funksion eshte dhene pershikrimi si koment ne kuader te programit.
 Shkrimi i argumenteve ne menyre adekuate behet siq eshte paraqitur me poshte pra ashtu si sintaksa ne kerkesen e projektit.
-![](images/Morse.PNG)
+![](Images/Morse.PNG)
 
 Kerkesen shtese audio e kemi bere te ekzekutohet ne momentin kur si argument eshte "audio" dhe teksti hyres eshte ne Morse Code atehere ndegjohet ajo vlere hyrese si nga makina Morse.
 # 3.Komanda Playfair
