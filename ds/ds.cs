@@ -63,19 +63,19 @@ namespace ds
             }
             if (args[0].Equals("morse-code"))
             {
-                Translator morse = new Translator();
+               Fjalori morse = new Fjalori();
 
                 string input = args[2];
                 string encode_decode = args[1];
-                Code c = new Code(input);
+                Morse m = new Morse(input);
                 // Metoda audio() perkrahet vetem ne Windows
                 if (encode_decode == "audio")
                 {
-                    c.audio(input);
+                    m.audio(input);
                 }
                 else
                 {
-                    Console.WriteLine("{1}", c.GetInput(), c.Perkthe(encode_decode));
+                    Console.WriteLine("{1}", m.GetInput(), m.Perkthe(encode_decode));
             
                 }
             }
