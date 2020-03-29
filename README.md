@@ -21,10 +21,10 @@ Shkrimi i argumenteve ne menyre adekuate behet siq eshte paraqitur me poshte pra
 
 Kerkesen shtese audio e kemi bere te ekzekutohet ne momentin kur si argument eshte "audio" dhe teksti hyres eshte ne Morse Code atehere ndegjohet ajo vlere hyrese si nga makina Morse.
 # 3.Komanda Playfair
-Komanda Playfair
+Matrica qelës formohet duke u bazuar në një keyëord.Nëse një shkronjë përsëritet më shumë se 1 herë ajo shënohet vetëm herën e parë.Mesazhi sekret duhet të ndahet në grupacion nga dy shkronja.Nëse mesazhi sekret nuk ka nr cift të shkronjave duhet të vendosim 'x'.Rregullat për enkriptim:
+1.Nëse shkronjat jane në rreshta të njëjtë atëherë duhet të merret elementi pasues
 # --> Referencat : 
  https://www.geeksforgeeks.org , 
  https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7 , 
- https://searchsecurity.techtarget.com/definition/cryptography , 
- http://rumkin.com/tools/cipher/playfair.php
+ https://searchsecurity.techtarget.com/definition/cryptography.
                       
