@@ -20,8 +20,19 @@ Encode a message by replacing each letter by its code symbol. Then decode the me
 # Morse-Code
 Dictionary
 
---> Some References : https://www.geeksforgeeks.org/morse-code/,
-                      https://www.braingle.com/brainteasers/codes/beale.php,
+# 1.Komanda Beale
+Komanda Beale
+# 2.Komanda Morse Code
+Komanda Morse është një kod që përdoret për të koduar mesazhe që përbëhen nga shkronja dhe shifra. Cdo shkronje përbëhet nga një seri . dhe _. 
+Ruajtja e shkronjave dhe vlerave perkatese te tyre ne Morse Code eshte bere duke krijuar objektin MorseDictionary ne kaudaer te klases Dictionary. Per secilin funksion eshte dhene pershikrimi si koment ne kuader te programit.
+Shkrimi i argumenteve ne menyre adekuate behet siq eshte paraqitur me poshte pra ashtu si sintaksa ne kerkesen e projektit.
+![](images/Morse.PNG)
+
+Kerkesen shtese audio e kemi bere te ekzekutohet ne momentin kur si argument eshte "audio" dhe teksti hyres eshte ne Morse Code atehere ndegjohet ajo vlere hyrese si nga makina Morse.
+# 3.Komanda Playfair
+Komanda Playfair
+--> Some References : https://www.geeksforgeeks.org,
+                      https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7.2
                       https://searchsecurity.techtarget.com/definition/cryptography
                       http://rumkin.com/tools/cipher/playfair.php
                       
