@@ -37,6 +37,7 @@ namespace write_mesage
             string part2 = Convert.ToBase64String(objDes.IV);
              //Qelesi i gjeneruar random 8 bytes
             objDes.GenerateKey();
+             //Qelesi i konvertuar ne Base64
             string keyStr = Convert.ToBase64String(objDes.Key);
 
             string plaintexti=args[2];
