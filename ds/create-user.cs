@@ -15,11 +15,28 @@ namespace createuser
         {
             string Key_Name = args[0];
             string Key_Path = "C://Users//dell//source//keys";
-             var cp = new CspParameters
-                    {
-                        KeyContainerName = Key_Name,
-                        Flags = CspProviderFlags.NoPrompt | CspProviderFlags.UseArchivableKey
-                   | CspProviderFlags.UseMachineKeyStore,
-
-                    };
+             var cp = new CspParameters();
             
+ bool DoesKeyExist(string name)
+            {
+
+                var cspParams = new CspParameters
+                {
+
+                    Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
+
+
+                    KeyContainerName = name
+                };
+
+                try
+                {
+                    var rsa = new RSACryptoServiceProvider(cspParams);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
+
+            }
