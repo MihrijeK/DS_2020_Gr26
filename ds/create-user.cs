@@ -40,3 +40,17 @@ namespace createuser
                 return true;
 
             }
+            if (DoesKeyExist(KeyName))
+            {
+                Console.WriteLine("Celesi " + KeyName + " ekziston paraprakisht");
+            }
+
+
+            if (!DoesKeyExist(KeyName))
+
+            {
+
+                cp.KeyContainerName = KeyName;
+                cp.Flags = CspProviderFlags.NoPrompt | CspProviderFlags.UseArchivableKey
+               | CspProviderFlags.UseMachineKeyStore;
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
