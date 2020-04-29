@@ -44,17 +44,26 @@ namespace write_mesage
             string mesazhiiEnkriptuar=Encrypt(plaintexti,keyStr);
             byte[] mesazhi=Encoding.UTF8.GetBytes(mesazhiiEnkriptuar);
             string part3=Convert.ToBase64String(mesazhi);
+             
             Console.WriteLine(part1 + "." + part2+ "." + part3);
-            
+            if(args[]!=0)
+            {
+                Console.WriteLine(Encrypt(args[1]));
 
+                string strXmlParameters = objRSA.ToXmlString(true);
+                StreamWriter sw = new StreamWriter("exportedKeys.xml");
+                sw.Write(strXmlParameters);
+                sw.Close();
+                Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin :"+"exportedKeys.xml");
+                
+            }
             }
         }
-
-        public static string Encrypt(string key)
+        //Enkriptimi i qelesit te DES me RSA
+        public static string Encrypti(string key)
         {
             byte[] bytePlaintexti = Encoding.UTF8.GetBytes(key);
             byte[] byteCiphertexti = objRSA.Encrypt(bytePlaintexti, true);
-
             return Convert.ToBase64String(byteCiphertexti);
         }
         //Enkriptimi i Mesazhit me DES
@@ -76,4 +85,7 @@ namespace write_mesage
             byte[] byteCiphertext = ms.ToArray();
             return Convert.ToBase64String(byteCiphertext);
     }
+        
+     
+        
 }
