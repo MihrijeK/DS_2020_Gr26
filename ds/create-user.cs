@@ -54,3 +54,20 @@ namespace createuser
                 cp.Flags = CspProviderFlags.NoPrompt | CspProviderFlags.UseArchivableKey
                | CspProviderFlags.UseMachineKeyStore;
                 RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
+
+
+
+                try
+                {
+
+                    var fs = new FileStream(
+                        String.Concat(KeyPath, "\\", KeyName, ".xml"), FileMode.Create);
+
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+
+                        sw.WriteLine(rsa.ToXmlString(true));
+                    }
+                    Console.WriteLine("Eshte krijuar celesi privat " + String.Concat("keys/", KeyName, ".xml"));
+
+                }
