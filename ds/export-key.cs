@@ -18,3 +18,23 @@ namespace ConsoleApp10
             string pp = args[1];
             string KeyPath = "C:\\Users\\Admin\\source\\repos\\lll\\prova\\bin\\Debug\\key";
             string exportfolder = args[2];
+            bool DoesKeyExist(string name)
+            {
+                var cspParams = new CspParameters
+                {
+
+                    Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
+
+                    KeyContainerName = name
+                };
+
+                try
+                {
+                    var rsa = new RSACryptoServiceProvider(cspParams);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                return true;
+            }
