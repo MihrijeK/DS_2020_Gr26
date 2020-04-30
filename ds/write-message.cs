@@ -15,7 +15,11 @@ namespace write_mesage
     {
         static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
         static void Main(string[] args)
-        {
+        {   //Qelesi i DES me rng
+            RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+            byte[] byteArray = new byte[8];
+            rngCsp.GetBytes(byteArray);
+            
             if (args[0].Equals("mire"))
             {
                 //Me lexu qelsin Public te marresit qe e shkrujam
