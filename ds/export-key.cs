@@ -38,3 +38,7 @@ namespace ConsoleApp10
                 }
                 return true;
             }
+                else
+                {
+                    Console.WriteLine("Nuk ekziston ky qeles");
+                }
