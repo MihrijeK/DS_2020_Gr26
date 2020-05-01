@@ -5,9 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Configuration;
-using System.Security.Permissions;
 
 namespace write_mesage
 {
