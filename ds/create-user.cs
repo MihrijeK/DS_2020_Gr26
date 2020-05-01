@@ -12,23 +12,23 @@ namespace createuser
     class createuser
     {
         static void Main(string[] args)
-        {
+        { 
+            //KeyName si argument i par
             string Key_Name = args[0];
-            string Key_Path = "C://Users//dell//source//keys";
-             var cp = new CspParameters();
             
- bool DoesKeyExist(string name)
-            {
-
-                var cspParams = new CspParameters
-                {
-
+            //Folderi ku duam ta ruajm celesin
+            string Key_Path = "C://Users//dell//source//keys";
+            
+           //kontrollojm se a ekziston ky celes paraprakisht
+            bool DoesKeyExist(string name)
+             {
+               //krijimi i CspParametrave
+               var cspParams = new CspParameters {
                     Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
-
-
                     KeyContainerName = name
                 };
-
+               
+                // e inicializojm nje instance te RSACryptoServiceProvider() klases me parametra te specifikuar
                 try
                 {
                     var rsa = new RSACryptoServiceProvider(cspParams);
@@ -39,46 +39,49 @@ namespace createuser
                 }
                 return true;
 
-            }
+               }
+            
+            //nese ky celes ekziston me pare shfaq kete mesazh
             if (DoesKeyExist(KeyName))
             {
                 Console.WriteLine("Celesi " + KeyName + " ekziston paraprakisht");
             }
 
-
+           //nese ky celes nuk ekziston me pare:
             if (!DoesKeyExist(KeyName))
 
             {
-
+                //krijimi i CspParametrave caktojm key container name qe sherben per me mbajt keypair qiftet e celesave RSA
+                var cp = new CspParameters();
                 cp.KeyContainerName = KeyName;
                 cp.Flags = CspProviderFlags.NoPrompt | CspProviderFlags.UseArchivableKey
                | CspProviderFlags.UseMachineKeyStore;
                 RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
 
-
-
-                
-               
-
-                    var fs = new FileStream(
-                        String.Concat(KeyPath, "\\", KeyName, ".xml"), FileMode.Create);
-
+                 //perdorimi i FileStream Class per te krijuar nje instance te re te kesaj klase me nje path specifik  
+                 //dhe krijimi i atij file
+                  var fs = new FileStream(
+                  String.Concat(KeyPath, "\\", KeyName, ".xml"), FileMode.Create);
+                     
+                  //Inicializimi i StreamWriter object duke e perdorur FileStream object
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
-
+                        //Krijon dhe kthen nje XML string permbajtje te celesit privat 
                         sw.WriteLine(rsa.ToXmlString(true));
                     }
-                    Console.WriteLine("Eshte krijuar celesi privat " + String.Concat("keys/", KeyName, ".xml"));
+                   
+                    Console.WriteLine("Eshte krijuar celesi privat " + String.Concat("keys//", KeyName, ".xml"));
 
-                
-                 var fs = new FileStream(
+                   //perdorimi i FileStream Class per te krijuar nje instance te re te kesaj klase me nje path specifik  
+                   //dhe krijimi i atij file
+                    var fs = new FileStream(
                             String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml"), FileMode.Create);
 
 
-                        using (StreamWriter sw = new StreamWriter(fs))
-                        {
-
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {     
+                         //Krijon dhe kthen nje XML string permbajtje te celesit privat 
                             sw.WriteLine(rsa.ToXmlString(false));
-                        }
+                     }
                     
-                    Console.WriteLine("Eshte krijuar celesi publik " + String.Concat("keys/", KeyName, ".pub", ".xml"));
+                    Console.WriteLine("Eshte krijuar celesi publik " + String.Concat("keys//", KeyName, ".pub", ".xml"));
