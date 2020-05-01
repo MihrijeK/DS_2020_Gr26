@@ -57,8 +57,8 @@ namespace createuser
 
 
 
-                try
-                {
+                
+               
 
                     var fs = new FileStream(
                         String.Concat(KeyPath, "\\", KeyName, ".xml"), FileMode.Create);
@@ -70,4 +70,15 @@ namespace createuser
                     }
                     Console.WriteLine("Eshte krijuar celesi privat " + String.Concat("keys/", KeyName, ".xml"));
 
-                }
+                
+                 var fs = new FileStream(
+                            String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml"), FileMode.Create);
+
+
+                        using (StreamWriter sw = new StreamWriter(fs))
+                        {
+
+                            sw.WriteLine(rsa.ToXmlString(false));
+                        }
+                    
+                    Console.WriteLine("Eshte krijuar celesi publik " + String.Concat("keys/", KeyName, ".pub", ".xml"));
