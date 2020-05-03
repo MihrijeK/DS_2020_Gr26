@@ -44,3 +44,28 @@ namespace deleteuser
                     return true;
 
                 }
+               if (DoesKeyExist(KeyName))
+                {
+                      
+
+                    if (File.Exists(Path.Combine(KeyPath, privat)) && File.Exists(Path.Combine(KeyPath, publik)))
+                    {
+                        var cp = new CspParameters
+                        {
+                            KeyContainerName = KeyName,
+                            Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
+                        };
+
+
+                    
+                        var rsa = new RSACryptoServiceProvider(cp)
+                        {
+
+                            PersistKeyInCsp = false
+                        };
+                        rsa.Clear();
+                        File.Delete(Path.Combine(KeyPath, privat));
+                        File.Delete(Path.Combine(KeyPath, publik));
+                        Console.WriteLine("Eshte larguar celesi privat " + String.Concat("keys/", KeyName, ".xml"));
+                        Console.WriteLine("Eshte larguar celesi publik " + String.Concat("keys/", KeyName, ".pub", ".xml"));
+                    }
