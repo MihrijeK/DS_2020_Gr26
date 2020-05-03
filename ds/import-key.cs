@@ -30,3 +30,21 @@ bool DoesKeyExist(string name)
                     }
                     return true;
                 }
+ if (args[1].Contains("https://"))
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(args[1]);
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string html = reader.ReadToEnd();
+                        StreamWriter pu = new StreamWriter(pub);
+                        pu.Write(html);
+                        pu.Close();
+                    }
+                }
+
+                Console.ReadLine();
+                Console.WriteLine("Celesi publik u ruajt ne fajllin " + pub);
+            }
+            
