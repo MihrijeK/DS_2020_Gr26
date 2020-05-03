@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace write_mesage
+namespace read_write_mesage
 {
     class Program
     {
@@ -17,7 +17,7 @@ namespace write_mesage
             byte[] byteArray = new byte[8];
             rngCsp.GetBytes(byteArray);
             
-            try{
+          
                     //Me lexu qelsin Public te marresit qe e shkrujam
                 string PubKey = File.ReadAllText(@"C://Users//ThinkPad T440//source//repos//DES1//create-user//bin//Debug//keys//mire.pb.xml");
                 
@@ -74,18 +74,13 @@ namespace write_mesage
                     }
                 }
             }
-            //Enkriptimi i qelesit te DES me RSA
-            public static string Encrypti(string key)
-            {
-                byte[] bytePlaintexti = Encoding.UTF8.GetBytes(key);
-                byte[] byteCiphertexti = objRSA.Encrypt(bytePlaintexti, true);
-                return Convert.ToBase64String(byteCiphertexti);
-            }
-            //Enkriptimi i Mesazhit me DES
-            public static byte[] EncriptimiIMesazhit(string mesazhi, byte[] Key, byte[] IV)
-        {
+            
+      //Enkriptimi i Mesazhit me DES me celsin e gjeneruar me ane te RNGCryptoServiceProvider dhe me IV e instances DES te gjenerar rastesisht
+      public static byte[] EnkriptimiIMesazhit(string mesazhi, byte[] Key, byte[] IV)
+      {
             try
             {
+                DESalg.Mode = CipherMode.CBC;
                 // Create a MemoryStream.
                 MemoryStream mStream = new MemoryStream();
 
@@ -119,13 +114,10 @@ namespace write_mesage
                 Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
                 return null;
             }
-    }
-    catch(FileNotFoundException e){
-            Console.WriteLine("Gabim: Celesi publik"+this.emri+" nuk ekziston.");
-    }
-     //Dekriptimi i Mesazhit me qelsin e dekriptuar nga objekti i RSA
-     public static string DecryptTextFromMemory(byte[] Data, byte[] Key, byte[] IV)
-        {
+      }
+     //Dekriptimi i Mesazhit me qelsin e dekriptuar nga objekti i RSA 
+     public static string DekriptimiIMesazhit(byte[] Data, byte[] Key, byte[] IV)
+     {
             try
             {
                 // Create a new MemoryStream using the passed
@@ -154,6 +146,37 @@ namespace write_mesage
                 Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
                 return null;
             }
-        }
+       }
+       //Enkriptimi i qelsit te DES-it me qelsin publik te merrsit
+      public static byte[] RSAEncrypt(byte[] DataToEncrypt, string pathi)
+      {
+            try
+            {
+                byte[] encryptedData;
+                //Create a new instance of RSACryptoServiceProvider.
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                {
+                    string strXmlParameters = "";
+                    StreamReader sr = new StreamReader(pathi);
+                    strXmlParameters = sr.ReadToEnd();
+                    sr.Close();
+                    
+                    //Import the RSA Key information. This only needs
+                    //toinclude the public key information.
+                    RSA.FromXmlString(strXmlParameters);
+                    //Encrypt the passed byte array and specify OAEP padding(true) 
+                    encryptedData = RSA.Encrypt(DataToEncrypt, true);
+                }
+                return encryptedData;
+            }
+            //Catch and display a CryptographicException  
+            //to the console.
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return null;
+            }
+      }
         
 }
