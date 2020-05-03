@@ -7,7 +7,20 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.IO;
 using System.Xml.Serialization;
+using System.Net;
 
+namespace ds
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            string KeyPath = args[1];
+            string KeyName = args[0];
+            string p1 = string.Concat(KeyName, ".xml");
+            string priv = string.Concat("key\\", p1);
+            string p2 = string.Concat(KeyName, ".pub.xml");
+            string pub = string.Concat("key\\", p2);
 bool DoesKeyExist(string name)
                 {
 
