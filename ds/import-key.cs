@@ -71,7 +71,14 @@ namespace ds
                             }
 
                             Console.WriteLine("Celesi publik u ruajt ne fajllin " + publik);
-                        }
+                        } 
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Fajlli nuk ekziston");
+                }
+            }
                 
  if (args[1].Contains("https://"))
             {
