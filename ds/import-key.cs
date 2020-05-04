@@ -21,28 +21,43 @@ namespace ds
             string priv = string.Concat("key\\", p1);
             string p2 = string.Concat(KeyName, ".pub.xml");
             string pub = string.Concat("key\\", p2);
-bool DoesKeyExist(string name)
+ if (shtegu.Contains(".xml"))
+            {
+                if (File.Exists(shtegu))
                 {
-
-                    var cspParams = new CspParameters
+                    string l = File.ReadAllText(shtegu);
+                    if (File.Exists(publik) && File.Exists(privat))
                     {
+                        Console.WriteLine("Ky celes ekziston paraprakisht");
 
-                        Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
-
-
-                        KeyContainerName = name
-                    };
-
-                    try
-                    {
-                        var rsa = new RSACryptoServiceProvider(cspParams);
                     }
-                    catch (Exception)
+
+                    else
                     {
-                        return false;
-                    }
-                    return true;
-                }
+                        if (l.Contains("<P>"))
+                        {
+
+                            using (StreamReader reader = new StreamReader(shtegu))
+                            {
+                                string permbajtja = reader.ReadToEnd();
+
+                                using (StreamWriter sw = new StreamWriter(privat))
+                                {
+                                    sw.Write(permbajtja);
+                                    sw.Close();
+                                    Console.WriteLine("Celesi privat u ruajt ne fajllin " + privat);
+                                }
+                                   using (StreamWriter sp = new StreamWriter(publik))
+                                {
+                                    RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
+                                    rsaKey.FromXmlString(permbajtja);
+                                    sp.Write(rsaKey.ToXmlString(false));
+                                    Console.WriteLine("Celesi publik u ruajt ne fajllin " + publik);
+                                }
+                            }
+
+                        }
+                
  if (args[1].Contains("https://"))
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(args[1]);
