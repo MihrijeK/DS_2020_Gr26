@@ -15,9 +15,10 @@ namespace deleteuser
         {
             string KeyName = args[0];
             string KeyPath = "C://keys";
-
-            string publik = String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml");
-            string privat = String.Concat(KeyPath, "\\", KeyName, ".xml");
+            if (args.Length == 1)
+             {
+              string publik = String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml");
+              string privat = String.Concat(KeyPath, "\\", KeyName, ".xml");
               bool DoesKeyExist(string name)
                 {
 
@@ -69,3 +70,40 @@ namespace deleteuser
                         Console.WriteLine("Eshte larguar celesi privat " + String.Concat("keys/", KeyName, ".xml"));
                         Console.WriteLine("Eshte larguar celesi publik " + String.Concat("keys/", KeyName, ".pub", ".xml"));
                     }
+
+                     else if (File.Exists(Path.Combine(KeyPath, publik)))
+                    {
+                        // If file found, delete it  
+
+                        var cp = new CspParameters
+                        {
+                            KeyContainerName = KeyName,
+                            Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
+                        };
+
+
+                        
+                        var rsa = new RSACryptoServiceProvider(cp)
+                        {
+
+                            PersistKeyInCsp = false
+                        };
+                        rsa.Clear();
+                        File.Delete(Path.Combine(KeyPath, publik));
+                        Console.WriteLine("Eshte larguar celesi publik " + String.Concat("keys/", KeyName, ".pub", ".xml"));
+
+                    }
+
+                }
+                 else if (!DoesKeyExist(KeyName))
+                {
+                    Console.WriteLine("Celesi " + KeyName + " nuk ekziston.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Shenoni vetem emrin");
+            }
+        }
+    }
+}
