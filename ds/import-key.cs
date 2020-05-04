@@ -57,6 +57,21 @@ namespace ds
                             }
 
                         }
+                        else
+                        {
+                            using (StreamReader reader = new StreamReader(shtegu))
+                            {
+
+                                using (StreamWriter sw = new StreamWriter(publik))
+                                {
+                                    string permbajtja = reader.ReadToEnd();
+                                    sw.Write(permbajtja);
+                                    sw.Close();
+                                }
+                            }
+
+                            Console.WriteLine("Celesi publik u ruajt ne fajllin " + publik);
+                        }
                 
  if (args[1].Contains("https://"))
             {
