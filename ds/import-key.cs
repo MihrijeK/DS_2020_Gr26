@@ -14,13 +14,13 @@ namespace ds
     class Program
     {
         static void Main(String[] args)
-        {
-            string KeyPath = args[1];
-            string KeyName = args[0];
-            string p1 = string.Concat(KeyName, ".xml");
-            string priv = string.Concat("key\\", p1);
-            string p2 = string.Concat(KeyName, ".pub.xml");
-            string pub = string.Concat("key\\", p2);
+        {  string KeyName = args[0];
+            string privat = "keys\\" + KeyName + ".xml";
+            string publik = "keys\\" + KeyName + ".pub.xml";
+            string shtegu = args[1];
+            var cs = new CspParameters() { };
+            cs.Flags = CspProviderFlags.UseMachineKeyStore;
+
  if (shtegu.Contains(".xml"))
             {
                 if (File.Exists(shtegu))
@@ -80,21 +80,31 @@ namespace ds
                 }
             }
                 
- if (args[1].Contains("https://"))
+       else if ((shtegu.Contains("https://")) || (shtegu.Contains("http://")))
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(args[1]);
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                if (File.Exists(publik))
                 {
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        string html = reader.ReadToEnd();
-                        StreamWriter pu = new StreamWriter(pub);
-                        pu.Write(html);
-                        pu.Close();
-                    }
-                }
+                    Console.WriteLine("Ky celes ekziston paraprakisht");
 
-                Console.ReadLine();
-                Console.WriteLine("Celesi publik u ruajt ne fajllin " + pub);
+                }
+                else
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(shtegu);
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+                        using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                        {
+                            string html = reader.ReadToEnd();
+                            StreamWriter pu = new StreamWriter(publik);
+                            pu.Write(html);
+                            pu.Close();
+                        }
+                    }
+
+                    Console.WriteLine("Celesi publik u ruajt ne fajllin " + publik);
+                }
             }
-            
+          }
+
+    }
+}
