@@ -6,74 +6,13 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace read_write_mesage
+namespace ds
 {
-    class Program
-    {
-        static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
-        static void Main(string[] args)
-        {   //Qelesi i DES me rng
-            RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
-            byte[] byteArray = new byte[8];
-            rngCsp.GetBytes(byteArray);
-            
-          
-                    //Me lexu qelsin Public te marresit qe e shkrujam
-                string PubKey = File.ReadAllText(@"C://Users//ThinkPad T440//source//repos//DES1//create-user//bin//Debug//keys//mire.pb.xml");
-                
-                //Per emrin
-                byte[] name = Encoding.UTF8.GetBytes(args[1]);
-                //Ketu emrin po e kthejm ne base64
-                string part1 = Convert.ToBase64String(name);
-                //Per qelsin dhe IV
-                DESCryptoServiceProvider objDes = new DESCryptoServiceProvider(); //Des instanca objDES
-                  //IV e gjeneruar random 8 bytes
-                objDes.GenerateIV();
-                string part2 = Convert.ToBase64String(objDes.IV);
-                 //Qelesi i gjeneruar random 8 bytes
-                objDes.GenerateKey();
-                 //Qelesi i konvertuar ne Base64
-                string keyStr = Convert.ToBase64String(objDes.Key);
-
-                string plaintexti=args[2];
-                string mesazhiiEnkriptuar=Encrypt(plaintexti,keyStr);
-                byte[] mesazhi=Encoding.UTF8.GetBytes(mesazhiiEnkriptuar);
-                string part3=Convert.ToBase64String(mesazhi);
-
-                Console.WriteLine(part1 + "." + part2+ "." + part3);
-                if(args[]!=0)
-                {
-                    Console.WriteLine(Encrypt(args[1]));
-
-                    string strXmlParameters = objRSA.ToXmlString(true);
-                    StreamWriter sw = new StreamWriter("exportedKeys.xml");
-                    sw.Write(strXmlParameters);
-                    sw.Close();
-                    Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin :"+"exportedKeys.xml");
-
-                }
-                try
-                    {
-                        {
-                            string Pathi = args[3];
-                            var fs = new FileStream(
-                                String.Concat(Pathi,".txt"), FileMode.Create);
-
-
-                            using (StreamWriter sw = new StreamWriter(fs))
-                            {
-
-                                sw.WriteLine();
-                            }
-                        }
-                        Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin " + String.Concat(Pathi,".txt"));
-                    }
-                 catch
-                    {
-                        Console.WriteLine("Eshte shfaqur nje problem gjate krijimit te fajllit");
-                    }
-                }
-            }
+  class read_write
+   {
+        static DESCryptoServiceProvider DESalg = new DESCryptoServiceProvider();
+        static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+       
             
       //Enkriptimi i Mesazhit me DES me celsin e gjeneruar me ane te RNGCryptoServiceProvider dhe me IV e instances DES te gjenerar rastesisht
       public static byte[] EnkriptimiIMesazhit(string mesazhi, byte[] Key, byte[] IV)
@@ -214,6 +153,6 @@ namespace read_write_mesage
             }
         }
           
-      }
+    }
         
 }
