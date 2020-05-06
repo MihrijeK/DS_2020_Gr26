@@ -7,18 +7,18 @@ using System.IO;
 using System.Security.Cryptography;
 
 
-namespace deleteuser
+namespace ds
 {
-    class deleteuser
+    
+    class Deleteuser
     {
-        static void Main(string[] args)
-        {
-            //argumenti i pare emri i celesit
-            string KeyName = args[0];
-            //path ku do te ruhet celesi
-            string KeyPath = "C://keys";
-            if (args.Length == 1)
-             {
+      //krjimi i funksionit Largo qe sherben per me i fshi celesat
+      public static void Largo(string KeyName)
+      {
+              
+              //path ku do te ruhet celesi
+              string KeyPath = "C://keys";
+
               
               string publik = String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml");
               string privat = String.Concat(KeyPath, "\\", KeyName, ".xml");
@@ -111,14 +111,7 @@ namespace deleteuser
                 {
                     Console.WriteLine("Celesi " + KeyName + " nuk ekziston.");
                 }
-            }
-            else
-            { 
-                
-                //nese shenon argumente me shume se sa qe duhet
-                  Console.WriteLine("Shenoni vetem  1 argument:KeyName");
-               
-            }
-        }
+      }
     }
 }
+    
