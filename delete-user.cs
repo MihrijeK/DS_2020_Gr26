@@ -16,14 +16,12 @@ namespace ds
       public static void Largo(string KeyName)
       {
               
-             //path ku ruhet qelesi
-              string KeyPath = "C://keys";
-
-              
-              string publik = String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml");
-              string privat = String.Concat(KeyPath, "\\", KeyName, ".xml");
+               //path ku ruhet qelesi
+               string KeyPath = "C://keys";
+                string publik = String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml");
+                string privat = String.Concat(KeyPath, "\\", KeyName, ".xml");
                 //funksioni qe sherben per te shiquar se a ekziston paraprakisht celesi
-              bool DoesKeyExist(string name)
+                bool DoesKeyExist(string name)
                 {
                    //krijimi i CspParameters
                     var cspParams = new CspParameters
@@ -52,7 +50,7 @@ namespace ds
 
                 }
                 //nese ekziston ai celes
-               if (DoesKeyExist(KeyName))
+                if (DoesKeyExist(KeyName))
                 {
                      
                    //nese ekzistojn Path te dhene
@@ -65,7 +63,7 @@ namespace ds
                         };
 
 
-                    //Krijimi i instances rsa
+                       //Krijimi i instances rsa
                         var rsa = new RSACryptoServiceProvider(cp)
                         {
                             //fshij permbajtjen e atij celesi
@@ -83,9 +81,9 @@ namespace ds
                     //nese ekziston vetem celesi publik
                    //largon çelësin publik të shfrytëzuesit.
                      else if (File.Exists(Path.Combine(KeyPath, publik)))
-                    {
+                     {
                         
-
+                        //krijimi i CspParametrave
                         var cp = new CspParameters
                         {
                             KeyContainerName = KeyName,
@@ -104,7 +102,7 @@ namespace ds
                         File.Delete(Path.Combine(KeyPath, publik));
                         Console.WriteLine("Eshte larguar celesi publik " + String.Concat("keys/", KeyName, ".pub", ".xml"));
 
-                    }
+                      }
 
                 }
                 //nese celesi nuk ekziston paraqite mesazhin qe nuk ekziston celesi me ate emer
@@ -112,7 +110,9 @@ namespace ds
                 {
                     Console.WriteLine("Gabim:Celesi " + KeyName + " nuk ekziston.");
                 }
+          
       }
     }
 }
+      
     
