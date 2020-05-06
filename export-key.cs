@@ -86,5 +86,30 @@ namespace ds
                     Console.WriteLine("Gabim: Celesi public " + KeyName + " nuk ekziston.");
                 }  
             }
+             if (PP == "private")
+            {
+                
+                    string priv = "C:\\keys\\" + KeyName + ".xml";
+                if (File.Exists(priv))
+                {
+                   
+                    using (StreamReader reader = new StreamReader(priv))
+                    {
+                        string html = reader.ReadToEnd();
+                        RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                        rsa.FromXmlString(html);
+                        Console.Write(rsa.ToXmlString(true));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Gabim: Celesi privat " + KeyName + " nuk ekziston.");
+                }
+       
+                }
+            }
+        }
+
+    }
        
        
