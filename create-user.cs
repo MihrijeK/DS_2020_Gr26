@@ -14,10 +14,7 @@ namespace ds
         //krjimi i nje funksioni qe shperben per krijimin e celesave
        public static void Krijo(string KeyName)
         {
-             
-            
-            
-            //Folderi ku duam ta ruajm celesin
+           //Folderi ku duam ta ruajm celesin
              string KeyPath = "C://keys";
              if (!(Directory.Exists(KeyPath)))
 
@@ -48,7 +45,7 @@ namespace ds
             //nese ky celes ekziston me pare shfaq kete mesazh
             if (DoesKeyExist(KeyName))
             {
-                Console.WriteLine("Celesi " + KeyName + " ekziston paraprakisht");
+                Console.WriteLine("Gabim:Celesi " + KeyName + " ekziston paraprakisht");
             }
 
            //nese ky celes nuk ekziston me pare:
@@ -70,7 +67,7 @@ namespace ds
                 //Perdorimi i StreamWriter per shkrim ne Fajllin e caktuar perkatesisht ne fajllin e krijuar (fs)
                  using (StreamWriter sw = new StreamWriter(fs))
                  {
-                     
+                      //Krijon dhe kthen nje XML string permbajtje te celesit privat 
                      sw.WriteLine(rsa.ToXmlString(true));
                  }
                    
@@ -90,7 +87,7 @@ namespace ds
                //Permes objektit sw(StreamWriter) shkruajm ne fajllin fs
                     using (StreamWriter sw = new StreamWriter(fs))
                     {     
-                         //Krijon dhe kthen nje XML string permbajtje te celesit privat 
+                         //Krijon dhe kthen nje XML string permbajtje te celesit publik
                             sw.WriteLine(rsa.ToXmlString(false));
                     }
                     
