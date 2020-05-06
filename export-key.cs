@@ -10,20 +10,21 @@ using System.Xml.Serialization;
 namespace ds
 {
     class exportkey
-    {
+    {  //krjimi i nje funksioni qe shperben per krijimin e celesave,caktimin se a eshte publik apo privat dhe exportfolder
         public static void Eksporti(string KeyName, string PP, string exportfolder)
         {
-
+       
             if (PP == "public")
             {
                  string pub = "C:\\keys\\" + KeyName + ".pub.xml";
                 if (File.Exists(pub))
                 {
                     using (StreamReader reader = new StreamReader(pub))
-                    {
+                    {//Lexojm të gjithë karakteret nga pozicioni aktual deri në fund të rrjedhës. 
                         string html = reader.ReadToEnd();
 
                         RSACryptoServiceProvider objRSAa = new RSACryptoServiceProvider();
+                            //Perdorimi i StreamWriter per shkrim ne Fajllin e caktuar perkatesisht ne fajllin e krijuar 
                        using (StreamWriter sp = new StreamWriter(Path.Combine(exportfolder)))
                         {
                            RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
@@ -49,6 +50,7 @@ namespace ds
                     {
                         string html = reader.ReadToEnd();
                         RSACryptoServiceProvider objRSAa = new RSACryptoServiceProvider();
+                        
                         using (StreamWriter sp = new StreamWriter(Path.Combine(exportfolder)))
                         {
                             RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
@@ -66,6 +68,8 @@ namespace ds
                     }
             }
         }
+        //krjimi i nje funksioni qe shperben per krijimin e celesave,caktimin se a eshte publik apo privat dhe shfaqjen e tyre ne console
+        
          public static void Ek(string KeyName, string PP)
         {
             if (PP == "public")
