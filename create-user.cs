@@ -67,7 +67,7 @@ namespace ds
                 var fs = new FileStream(
                 String.Concat(KeyPath, "\\", KeyName, ".xml"), FileMode.Create);
                      
-                
+                //Perdorimi i StreamWriter per shkrim ne Fajllin e caktuar perkatesisht ne fajllin e krijuar (fs)
                  using (StreamWriter sw = new StreamWriter(fs))
                  {
                      
