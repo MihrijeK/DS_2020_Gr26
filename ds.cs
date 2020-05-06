@@ -9,8 +9,24 @@ namespace ds
 {
     class Program
     {
+        static DESCryptoServiceProvider DESalg = new DESCryptoServiceProvider();
+        static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
         static void Main(string[] args)
         {
+         RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+            byte[] key = new byte[8];
+            rngCsp.GetBytes(key);
+
+            byte[] encryptedData;
+            byte[] decryptedData;
+            string KeyName = args[1];
+            byte[] Name = Encoding.UTF8.GetBytes(KeyName);
+            string part1 = Convert.ToBase64String(Name);
+            DESalg.GenerateIV();
+            string part2 = Convert.ToBase64String(DESalg.IV);
+            string KeyPath = @"C://keys";
+            string publik = String.Concat(KeyPath, "//", KeyName, ".pub", ".xml"); 
+            
             if (args[0].Equals("Beale"))
             {
                   if (args.Length == 4)
@@ -135,13 +151,14 @@ namespace ds
                             else
                             {
                                 Console.WriteLine("Keni dhene komanda jo valide");
-
+                                Environment.Exit(1);
                             }
                         }
                     }
                     else
                     {
                         Console.WriteLine("Shenoni 2 argumente:create-user dhe KeyName");
+                        Environment.Exit(1);
                     }
 
                }
@@ -156,6 +173,7 @@ namespace ds
                     else
                     {
                         Console.WriteLine("Shenoni 2 argumente:delete-user dhe KeyName");
+                        Environment.Exit(1);
                     }
                 }
             if(args[0].Equals("export-key"))
@@ -198,6 +216,7 @@ namespace ds
                         else
                         {
                             Console.WriteLine("Keni dhene komanda jo valide");
+                            Environment.Exit(1);
 
                         }
 
@@ -227,6 +246,7 @@ namespace ds
                     catch
                     {
                         Console.WriteLine("Gabim: Celesi publik " + String.Concat(KeyName) + " nuk ekziston ");
+                        Environment.Exit(1);
                     }
                 }
                 else
@@ -246,7 +266,7 @@ namespace ds
                     catch (CryptographicException e)
                     {
                         Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
-                      
+                        Environment.Exit(1);
                     }
                 }
             }
@@ -272,6 +292,7 @@ namespace ds
                     catch
                     {
                         Console.WriteLine("Gabim: Celesi privat " + String.Concat("keys/", new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])), ".xml") + " nuk ekziston ");
+                        Environment.Exit(1);
                     }
 
                 }
@@ -289,6 +310,7 @@ namespace ds
                     catch
                     {
                         Console.WriteLine("Gabim: Celesi privat " + String.Concat("keys/", new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])), ".xml") + " nuk ekziston ");
+                        Environment.Exit(1);
                     }
                 }
             }
