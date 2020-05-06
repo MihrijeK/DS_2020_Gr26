@@ -7,38 +7,38 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.IO;
 using System.Xml.Serialization;
-namespace ConsoleApp10
+namespace ds
 {
-    class Program
+    class exportkey
     {
-        static RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-        static void Main(string[] args)
+        public static void Eksporti(string KeyName, string PP, string exportfolder)
         {
-            string KeyName = args[0];
-            string pp = args[1];
-            string KeyPath = "C:\\Users\\Admin\\source\\repos\\lll\\prova\\bin\\Debug\\key";
-            string exportfolder = args[2];
-            bool DoesKeyExist(string name)
+
+            if (PP == "public")
             {
-                var cspParams = new CspParameters
+                 string pub = "C:\\keys\\" + KeyName + ".pub.xml";
+                if (File.Exists(pub))
                 {
+                    using (StreamReader reader = new StreamReader(pub))
+                    {
+                        string html = reader.ReadToEnd();
 
-                    Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
-
-                    KeyContainerName = name
-                };
-
-                try
-                {
-                    var rsa = new RSACryptoServiceProvider(cspParams);
+                        RSACryptoServiceProvider objRSAa = new RSACryptoServiceProvider();
+                       using (StreamWriter sp = new StreamWriter(Path.Combine(exportfolder)))
+                        {
+                           RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
+                            rsaKey.FromXmlString(html);
+                            sp.Write(rsaKey.ToXmlString(false));
+                         }
+                        Console.WriteLine("Celesi publik u ruajt ne fajllin " + exportfolder + ".");
+                    }
                 }
-                catch (Exception)
-                {
-                    return false;
-                }
-                return true;
-            }
                 else
                 {
-                    Console.WriteLine("Nuk ekziston ky qeles");
+                    Console.WriteLine("Gabim: Celesi public " + KeyName + " nuk ekziston.");
+
                 }
+               
+            }
+
+          
