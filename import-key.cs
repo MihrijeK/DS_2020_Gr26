@@ -3,15 +3,15 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Net;
 
-namespace importkey
+namespace ds
 {
   public  class import
     {
         public static void Import(string Keyname,string shtegu)
         {
 
-            string privat = "keys\\" + Keyname + ".xml";
-            string publik = "keys\\" + Keyname + ".pub.xml";
+            string privat = "C:\\keys\\" + Keyname + ".xml";
+            string publik = "C:\\keys\\" + Keyname + ".pub.xml";
             var cs = new CspParameters() { };
             cs.Flags = CspProviderFlags.UseMachineKeyStore;
 
