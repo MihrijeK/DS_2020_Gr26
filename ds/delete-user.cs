@@ -65,7 +65,7 @@ namespace ds
                         };
 
 
-                    
+                    //Krijimi i instances rsa
                         var rsa = new RSACryptoServiceProvider(cp)
                         {
                             //fshij permbajtjen e atij celesi
@@ -92,7 +92,7 @@ namespace ds
                         };
 
 
-                        
+                        //Krijimi i instances rsa
                         var rsa = new RSACryptoServiceProvider(cp)
                         {
                            //ateher fshije permbajtjen e atij celesi 
