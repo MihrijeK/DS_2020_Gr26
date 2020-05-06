@@ -20,26 +20,28 @@ namespace ds
                 if (File.Exists(shtegu))
                 {   //stringu l per lexim te permbajtjes se atij shtegu
                     string l = File.ReadAllText(shtegu);
-                  //nese ekziston celesi publik dhe privat i atij shtegu  paraqite tekstin qe ekziston paraprakisht
+                  //nese ekzistojn edhe file publik dhe ai privat
                     if (File.Exists(publik) && File.Exists(privat))
                     {
                         Console.WriteLine("Ky celes ekziston paraprakisht");
 
                     }
-
+                  //perndryshe
                     else
                     {
-                      //Nëse çelësi që po importohet është privat, atëherë automatikisht do ta gjenerohet edhe pjesa publike dhe do te ruhen të dyt në
+                      //Nëse çelësi që po importohet është privat, atëherë automatikisht do te gjenerohet edhe pjesa publike dhe do te ruhen të dyte në
                        //direktoriumin e çelësave.
                         if (l.Contains("<P>"))
                         {
 
                             using (StreamReader reader = new StreamReader(shtegu))
-                            {//permbajtja per lexim te shtegut
+                            {
+                              //variabla permbajtja qe sherben per lexim te shtegut
                                 string permbajtja = reader.ReadToEnd();
                      //Perdorimi i StreamWriter per shkrim ne Fajllin e caktuar perkatesisht ne fajllin e krijuar (privat)
                                 using (StreamWriter sw = new StreamWriter(privat))
                                 {  
+                                  //ne file privat shkruaj permbajtjen
                                     sw.Write(permbajtja);
                                     sw.Close();
                                     Console.WriteLine("Celesi privat u ruajt ne fajllin " + privat);
@@ -48,6 +50,7 @@ namespace ds
                                    using (StreamWriter sp = new StreamWriter(publik))
                                 {
                                     RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
+                                    //celesi publik
                                     rsaKey.FromXmlString(permbajtja);
                                     sp.Write(rsaKey.ToXmlString(false));
                                     Console.WriteLine("Celesi publik u ruajt ne fajllin " + publik);
@@ -73,6 +76,7 @@ namespace ds
                         } 
                     }
                 }
+           //nese file nuk ekziston 
                 else
                 {
                     Console.WriteLine("Fajlli nuk ekziston");
@@ -84,6 +88,7 @@ namespace ds
             {
                 if (File.Exists(publik))
                 {
+                  
                     Console.WriteLine("Ky celes ekziston paraprakisht");
 
                 }
@@ -109,6 +114,7 @@ namespace ds
             {
                 Console.Write("Gabim: Fajlli i dhene nuk eshte celes valid.");
             }
+          
             else
             {
                 Console.Write("Gabim: Fajlli i dhene nuk eshte celes valid.");
