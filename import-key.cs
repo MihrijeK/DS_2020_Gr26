@@ -23,7 +23,7 @@ namespace ds
                   //nese ekzistojn edhe file publik dhe ai privat
                     if (File.Exists(publik) && File.Exists(privat))
                     {
-                        Console.WriteLine("Ky celes ekziston paraprakisht");
+                      Console.WriteLine("Gabim: Celesi " + Keyname + " ekziston paraprakisht.");
 
                     }
                   //perndryshe
