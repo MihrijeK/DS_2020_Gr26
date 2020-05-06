@@ -90,6 +90,8 @@ namespace ds
             {
                 
                     string priv = "C:\\keys\\" + KeyName + ".xml";
+                // Ndonjëherë mund ta kemi vetëm çelësin publik të një shfrytëzuesi, prandaj nëse e kërkojmë çelësin
+                //privat do të shfaqet një mesazh gabimi.
                 if (File.Exists(priv))
                 {
                    
