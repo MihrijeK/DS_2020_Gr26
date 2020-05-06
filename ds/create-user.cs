@@ -78,12 +78,13 @@ namespace createuser
                  Console.WriteLine("Eshte shfaqur nje problem gjate krijimit te celesit privat");
              }
 
-                
+             //Kontrollojme permes try and catch nese ka ndonje gabim
             try
              {
+                //Krijimi i fajllit me extension .xml ne varesi nga pathi dhe emri
                     var fs = new FileStream(
                         String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml"), FileMode.Create);
-               
+               //Permes objektit sw(StreamWriter) shkruajm ne fajllin fs
                     using (StreamWriter sw = new StreamWriter(fs))
                     {     
                          //Krijon dhe kthen nje XML string permbajtje te celesit privat 
