@@ -32,20 +32,20 @@ namespace ds
                 //Konverton stringun ne nje byte array.
                 byte[] toEncrypt = new ASCIIEncoding().GetBytes(mesazhi);
 
-                // Write the byte array to the crypto stream and flush it.
+                // Shkrimi i bytearray ne CryptoStream
                 cStream.Write(toEncrypt, 0, toEncrypt.Length);
                 cStream.FlushFinalBlock();
 
-                // Get an array of bytes from the
-                // MemoryStream that holds the
-                // encrypted data.
+                // Formimi i nje array me bytes
+                // qe merr informata nga MemoryStream 
+                // dhe me pas e mban pjesen e enkriptuar
                 byte[] ret = mStream.ToArray();
 
                 //Mbylli streams.
                 cStream.Close();
                 mStream.Close();
 
-                // Return the encrypted buffer.
+                // Kthen bufferin e enkriptuar (ret)
                 return ret;
             }
             catch (CryptographicException e)
@@ -60,24 +60,23 @@ namespace ds
             try
             {
                 // Krijo nje MemoryStream duke perdorur
-                // array of encrypted data.
+                // te dhenat ne forme te bajtave (Data)
                 DESalg.Mode = CipherMode.CBC;
                 MemoryStream msDecrypt = new MemoryStream(Data);
-
-                // Create a CryptoStream using the MemoryStream
-                // and the passed key and initialization vector (IV).
+                  //Krijimi i CryptoStream duke perdorur MemoryStream duke ja pasuar qelsin dhe IV perkates
+                
                 CryptoStream csDecrypt = new CryptoStream(msDecrypt,
                     new DESCryptoServiceProvider().CreateDecryptor(Key, IV),
                     CryptoStreamMode.Read);
 
-                // Create buffer to hold the decrypted data.
+                // Krijimi i bufferit qe qe te mbaje te dhenat e dekriptuara 
                 byte[] fromEncrypt = new byte[Data.Length];
 
-                // Read the decrypted data out of the crypto stream
-                // and place it into the temporary buffer.
+                // Leximi i te dhenave
+                // dhe vendosja e tyre ne bufferin fromEncrypt
                 csDecrypt.Read(fromEncrypt, 0, fromEncrypt.Length);
 
-                //Convert the buffer into a string and return it.
+                //Convertimi i bajtave ne string dhe kthyerja e tyre
                 return new ASCIIEncoding().GetString(fromEncrypt);
             }
             catch (CryptographicException e)
@@ -103,19 +102,20 @@ namespace ds
                   //nese  nevojiten vetem informacionet e celesit publik
                    
                     RSA.FromXmlString(strXmlParameters);
-                    //Encrypt the passed byte array and specify OAEP padding(true) 
+                    //Encrypton te dhenat e pasuara 
                     encryptedData = RSA.Encrypt(DataToEncrypt, true);
                 }
                 return encryptedData;
             }
-            //Catch and display a CryptographicException  
-            //to the console.
+            //Gjen dhe shfaq ndonje gabim CryptographicException
+            
             catch (CryptographicException e)
             {
                 Console.WriteLine(e.Message);
 
                 return null;
             }
+      }
         //Dekriptimi i te dhenave perkatesisht i qelsit qe e marrim me ane te funskionit ConvertFromBase64String 
           //Duke perdorur qelsin privat te emrit qe e ka marr nga Consola. 
         public static byte[] RSADecrypt(byte[] DataToDecrypt, string pathi)
@@ -123,7 +123,7 @@ namespace ds
             try
             {
                 byte[] decryptedData;
-                //Create a new instance of RSACryptoServiceProvider.
+                //Krijimi i instances se RSACryptoServiceProvider.
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
                     string strXmlParameters = "";
@@ -136,15 +136,13 @@ namespace ds
                     //te permbaj dhe informacione te private key.
                     // RSA.ImportParameters(RSAKeyInfo);
 
-                    //Decrypt the passed byte array and specify OAEP padding.  
-                    //OAEP padding is only available on Microsoft Windows XP or
-                    //later.  
+                    //Dekriptimi i te dhenave qe jane jepur ne forme te bajtave.  
+                    
                     decryptedData = RSA.Decrypt(DataToDecrypt, true);
                 }
                 return decryptedData;
             }
-            //Catch and display a CryptographicException  
-            //to the console.
+            //Gjen dhe shfaq ndonje gabim CryptographicException
             catch (CryptographicException e)
             {
                 Console.WriteLine(e.ToString());
