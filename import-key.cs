@@ -28,6 +28,8 @@ namespace ds
 
                     else
                     {
+                      //Nëse çelësi që po importohet është privat, atëherë automatikisht do ta gjenerohet edhe pjesa publike dhe do te ruhen të dyt në
+                       //direktoriumin e çelësave.
                         if (l.Contains("<P>"))
                         {
 
@@ -52,7 +54,7 @@ namespace ds
 
                         }
                         else
-                        {
+                        {//Perndryshe nese permbajtja eshte vetme me Modulus dhe Exponent atehere ruhet vetem qelesi publik.
                             using (StreamReader reader = new StreamReader(shtegu))
                             {
 
