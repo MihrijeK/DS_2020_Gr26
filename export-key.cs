@@ -40,5 +40,31 @@ namespace ds
                 }
                
             }
+         if (PP == "private")
+            {
+                    string priv = "C:\\keys\\" + KeyName + ".xml";
+                    if (File.Exists(priv))
+                    {
+                    using (StreamReader reader = new StreamReader(priv))
+                    {
+                        string html = reader.ReadToEnd();
+                        RSACryptoServiceProvider objRSAa = new RSACryptoServiceProvider();
+                        using (StreamWriter sp = new StreamWriter(Path.Combine(exportfolder)))
+                        {
+                            RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider();
+                            rsaKey.FromXmlString(html);
+                            sp.Write(rsaKey.ToXmlString(true));
+                            Console.WriteLine("Celesi privat u ruajt ne fajllin " + exportfolder + ".");
+                        }                    
+                    }
 
-          
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Gabim: Celesi privat " + KeyName + " nuk ekziston.");
+                    }
+            }
+        }
+       
+       
