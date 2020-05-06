@@ -158,6 +158,57 @@ namespace ds
                         Console.WriteLine("Shenoni 2 argumente:delete-user dhe KeyName");
                     }
                 }
+            if(args[0].Equals("export-key"))
+            {
+               
+                exportkey exporr = new exportkey();
+
+                if (args.Length==4)
+                {
+                    string KeyName = args[2];
+                    string PP = args[1];
+                    string exportfolder = args[3];
+                    exportkey.Eksporti(KeyName, PP, exportfolder);
+                   
+                }
+                else if(args.Length==3)
+                {
+                    string KeyName = args[2];
+                    string PP = args[1];
+                    exportkey.Ek(KeyName, PP);
+
+                }
+                else
+                {
+                    Console.WriteLine("Shenoni vetem agrumentet e caktuara.");
+                }
+            }
+            if (args[0].Equals("import-key"))
+            {
+                if (args.Length == 3)
+                {
+                    import importk = new import();
+                    {
+                        string Keyname = args[1];
+                        string shtegu = args[2];
+                        if (Regex.IsMatch(Keyname, "^[a-zA-Z0-9_]*$"))
+                        {
+                            import.Import(Keyname, shtegu);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Keni dhene komanda jo valide");
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Shenoni 3 argumente:import-user,Keyname dhe shtegun");
+                }
+
+            }
            if (args[0].Equals("write-message"))
             {
                 read_write obj = new read_write();
