@@ -16,7 +16,7 @@ namespace ds
       public static void Largo(string KeyName)
       {
               
-              //path ku do te ruhet celesi
+             //path ku ruhet qelesi
               string KeyPath = "C://keys";
 
               
@@ -107,10 +107,10 @@ namespace ds
                     }
 
                 }
-                //nese celesi nuk ekziston paraqite kete mesazh
+                //nese celesi nuk ekziston paraqite mesazhin qe nuk ekziston celesi me ate emer
                  else if (!DoesKeyExist(KeyName))
                 {
-                    Console.WriteLine("Celesi " + KeyName + " nuk ekziston.");
+                    Console.WriteLine("Gabim:Celesi " + KeyName + " nuk ekziston.");
                 }
       }
     }
