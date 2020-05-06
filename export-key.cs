@@ -66,5 +66,25 @@ namespace ds
                     }
             }
         }
+         public static void Ek(string KeyName, string PP)
+        {
+            if (PP == "public")
+            {
+                string pub = "C:\\keys\\" + KeyName + ".pub.xml";
+                if (File.Exists(pub))
+                {
+                    using (StreamReader reader = new StreamReader(pub))
+                    {
+                        string html = reader.ReadToEnd();
+                        RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                        rsa.FromXmlString(html);
+                        Console.Write(rsa.ToXmlString(false));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Gabim: Celesi public " + KeyName + " nuk ekziston.");
+                }  
+            }
        
        
