@@ -92,16 +92,16 @@ namespace ds
             try
             {
                 byte[] encryptedData;
-                //Create a new instance of RSACryptoServiceProvider.
+             //  Inicializon një objekt RSA nga informacioni kryesor .
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
                     string strXmlParameters = "";
                     StreamReader sr = new StreamReader(pathi);
                     strXmlParameters = sr.ReadToEnd();
                     sr.Close();
-                    
-                    //Import the RSA Key information. This only needs
-                    //toinclude the public key information.
+                    //Importon informacionet e celesit RSA.
+                  //nese  nevojiten vetem informacionet e celesit publik
+                   
                     RSA.FromXmlString(strXmlParameters);
                     //Encrypt the passed byte array and specify OAEP padding(true) 
                     encryptedData = RSA.Encrypt(DataToEncrypt, true);
