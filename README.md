@@ -22,22 +22,25 @@ Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më pos
 ![](Images/Playfair.png)
 Gjenerimi i tabeles ne baze te keyword per piket shtese
 
-#Komanda Create-user
-#Komanda Delete-user
-#Komanda Export-key
-#Komanda Import-key
+# Komanda Create-user
+# Komanda Delete-user
+# Komanda Export-key
+# Komanda Import-key
 
-#Komanda Write Message
+# Komanda Write Message
 E shkruan një mesazh të enkriptuar të dedikuar për një shfrytëzues.
 Është krijuar funksioni Enkriptimi i Mesazhit permes DES me çelësin key të gjeneruar permes RNGCryptoServiceProvider dhe IV e gjenerauar permes instances së klasës DESCryptoServiceProvider, ky çelës i DES-it enkriptohet permes RSA me anë të funksionit RSAEncrypt me çelësin publik keys/<name>.pub.xml. pra me celesin publik të marresit pastaj ky çelës i enkriptuar me RSA convertohet në base64 dhe shfaqet në Console apo ruhet në dokumentin qe jep shfrytezuesi, në Console shfaqet gjithashtu emri i marresit në base64,IV në base 64 si dhe mesazhi i enkriptuar në base64 pra sipas skemës ne vijim:
            ciphertext = base64(utf8(<name>)) . base64(<iv>). base64(rsa(<key>)) . base64(des(<message>))
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
  
-#Komanda Read Message
+# Komanda Read Message
 E dekripton dhe e shfaq në Console mesazhin e enkriptuar.
 Është krijur funksioni RSADecrypt për dekriptimin e çelësit qe merret nga hyerja duke e konvertuar nga base64 ne byte gjithashtu dekriptimi bëhet me çelësin privat keys/<name>.xml që merret nga hyrja duke e marr emrin dhe bashkangjit atë emer me fajllin ku janë gjeneruar çelësat nese nuk mund te gjendet çelësi privat atëhere shfaqet mesazh gabimi, çelësin i dekriptuar nga RSADecrypt-funksioni shfrytezohet nga funksioni DekriptimiiMesazhit që e dekripton mesazhin me atë çelës.
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
-
+![](Images/read1.png)
+![](Images/read2%20(2).png)
+![](Images/read3.png)
+![](Images/read4.png)
 
 # --> Referencat : 
  Per komanden Morse orientimi ka qene kryesisht ne keto dy linqe : https://www.geeksforgeeks.org/morse-code-implementation/ ,
