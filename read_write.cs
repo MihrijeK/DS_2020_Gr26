@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace ds
 {
-  class read_write
+  public class read_write
    {
         static DESCryptoServiceProvider DESalg = new DESCryptoServiceProvider();
         static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
