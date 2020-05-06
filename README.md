@@ -49,20 +49,32 @@ Si argument të parë e shënojm këtë komandë ndërsa si argument të dytë e
 Ndërsa nëse shënojmë më shumë argumente se sa që duhet:
 ![](Images/validimi2.png)
 
-#Komanda Export-key
-#Komanda Import-key
 
-#Komanda Write Message
+# Komanda Export-key
+Eksporton çelësin publik ose privat të shfrytëzuesit nga direktoriumi i çelësave.Nëse shkruajmë 3 argumente vartësisht nga lloji i celësit,përmbajtja e tij na u paraqitet në Console,përndryshe nëse i shkruajmë 4 argumente celësi ruhet në fajllin të cilin ne ia përcaktojme.Ndonjëherë mund ta kemi vetëm çelësin publik të një shfrytëzuesi, prandaj nëse e kërkojmë çelësin
+privat do të shfaqet një mesazh gabimi.
+![](Images/export-key.png)
+# Komanda Import-key
+Importon çelësin publik ose privat të shfrytëzuesit nga shtegu i dhënë dhe e vendos në direktoriumin
+e çelësave.Çelësi i importuar mund të jetë publik ose privat.
+Sintaksa: ds import-key <name> <path>
+![](Images/import1.png)
+![](Images/importkey2.png)
+           
+# Komanda Write Message
 E shkruan një mesazh të enkriptuar të dedikuar për një shfrytëzues.
 Është krijuar funksioni Enkriptimi i Mesazhit permes DES me çelësin key të gjeneruar permes RNGCryptoServiceProvider dhe IV e gjenerauar permes instances së klasës DESCryptoServiceProvider, ky çelës i DES-it enkriptohet permes RSA me anë të funksionit RSAEncrypt me çelësin publik keys/<name>.pub.xml. pra me celesin publik të marresit pastaj ky çelës i enkriptuar me RSA convertohet në base64 dhe shfaqet në Console apo ruhet në dokumentin qe jep shfrytezuesi, në Console shfaqet gjithashtu emri i marresit në base64,IV në base 64 si dhe mesazhi i enkriptuar në base64 pra sipas skemës ne vijim:
            ciphertext = base64(utf8(<name>)) . base64(<iv>). base64(rsa(<key>)) . base64(des(<message>))
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
- 
-#Komanda Read Message
+
+# Komanda Read Message
 E dekripton dhe e shfaq në Console mesazhin e enkriptuar.
 Është krijur funksioni RSADecrypt për dekriptimin e çelësit qe merret nga hyerja duke e konvertuar nga base64 ne byte gjithashtu dekriptimi bëhet me çelësin privat keys/<name>.xml që merret nga hyrja duke e marr emrin dhe bashkangjit atë emer me fajllin ku janë gjeneruar çelësat nese nuk mund te gjendet çelësi privat atëhere shfaqet mesazh gabimi, çelësin i dekriptuar nga RSADecrypt-funksioni shfrytezohet nga funksioni DekriptimiiMesazhit që e dekripton mesazhin me atë çelës.
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
-
+![](Images/read1.png)
+![](Images/read2%20(2).png)
+![](Images/read3.png)
+![](Images/read4.png)
 
 # --> Referencat : 
  Per komanden Morse orientimi ka qene kryesisht ne keto dy linqe : https://www.geeksforgeeks.org/morse-code-implementation/ ,
