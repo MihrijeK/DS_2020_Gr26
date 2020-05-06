@@ -34,7 +34,7 @@ namespace ds
 
                         KeyContainerName = name
                     };
-
+                
                     try
                     {
                         //krijimi i nje instance te re te RSACryptoServiceProvider() qe merr si paramater cspParams qe i krijuam 
@@ -81,6 +81,7 @@ namespace ds
                     }
                    
                     //nese ekziston vetem celesi publik
+                   //largon çelësin publik të shfrytëzuesit.
                      else if (File.Exists(Path.Combine(KeyPath, publik)))
                     {
                         
