@@ -20,16 +20,16 @@ namespace ds
             try
             {
                 DESalg.Mode = CipherMode.CBC;
-                // Create a MemoryStream.
+                // Krijimi i nje  MemoryStream.
                 MemoryStream mStream = new MemoryStream();
 
-                // Create a CryptoStream using the MemoryStream
-                // and the passed key and initialization vector (IV).
+                // Krijimi i CryptoStream duke perdorur MemoryStream,
+                // celesin  dhe  initialization vector (IV).
                 CryptoStream cStream = new CryptoStream(mStream,
                     new DESCryptoServiceProvider().CreateEncryptor(Key, IV),
                     CryptoStreamMode.Write);
 
-                // Convert the passed string to a byte array.
+                //Konverton stringun ne nje byte array.
                 byte[] toEncrypt = new ASCIIEncoding().GetBytes(mesazhi);
 
                 // Write the byte array to the crypto stream and flush it.
@@ -41,7 +41,7 @@ namespace ds
                 // encrypted data.
                 byte[] ret = mStream.ToArray();
 
-                // Close the streams.
+                //Mbylli streams.
                 cStream.Close();
                 mStream.Close();
 
@@ -59,7 +59,7 @@ namespace ds
      {
             try
             {
-                // Create a new MemoryStream using the passed
+                // Krijo nje MemoryStream duke perdorur
                 // array of encrypted data.
                 DESalg.Mode = CipherMode.CBC;
                 MemoryStream msDecrypt = new MemoryStream(Data);
@@ -132,8 +132,8 @@ namespace ds
                     sr.Close();
 
                     RSA.FromXmlString(strXmlParameters);
-                    //Import the RSA Key information. This needs
-                    //to include the private key information.
+                    //Importo  RSA Key informacionet. Duhet
+                    //te permbaj dhe informacione te private key.
                     // RSA.ImportParameters(RSAKeyInfo);
 
                     //Decrypt the passed byte array and specify OAEP padding.  
