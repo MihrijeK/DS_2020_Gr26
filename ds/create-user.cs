@@ -11,11 +11,10 @@ namespace createuser
 {
     class createuser
     {
-        static void Main(string[] args)
-        { 
-           
-            //KeyName si argument i par
-            string KeyName = args[0];
+        //krjimi i nje funksioni qe shperben per krijimin e celesave
+       public static void Krijo(string KeyName)
+        {
+            
             
             
             //Folderi ku duam ta ruajm celesin
@@ -52,7 +51,7 @@ namespace createuser
            //nese ky celes nuk ekziston me pare:
            if (!DoesKeyExist(KeyName))
            {
-                //krijimi i CspParametrave caktojm key container name qe sherben per me mbajt keypair qiftet e celesave RSA
+               
                 var cp = new CspParameters();
                 cp.KeyContainerName = KeyName;
                 cp.Flags = CspProviderFlags.NoPrompt | CspProviderFlags.UseArchivableKey
@@ -65,10 +64,10 @@ namespace createuser
                 var fs = new FileStream(
                 String.Concat(KeyPath, "\\", KeyName, ".xml"), FileMode.Create);
                      
-                 //Inicializimi i StreamWriter object duke e perdorur FileStream object
+                
                  using (StreamWriter sw = new StreamWriter(fs))
                  {
-                     //Krijon dhe kthen nje XML string permbajtje te celesit privat 
+                     
                      sw.WriteLine(rsa.ToXmlString(true));
                  }
                    
@@ -79,17 +78,7 @@ namespace createuser
                  Console.WriteLine("Eshte shfaqur nje problem gjate krijimit te celesit privat");
              }
 
-                 //perdorimi i FileStream Class per te krijuar nje instance te re te kesaj klase me nje path specifik  
-                //dhe krijimi i atij file
-            try
-            {
-                var fs = new FileStream(
-                    String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml"), FileMode.Create);
-            }
-             catch
-             {
-                  Console.WriteLine("Eshte shfaqur nje problem gjate krijimit te celesit privat");
-             }
+                
             try
              {
                     var fs = new FileStream(
