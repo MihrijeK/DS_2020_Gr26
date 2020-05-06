@@ -1,27 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Security.Cryptography;
 using System.IO;
-using System.Xml.Serialization;
+using System.Security.Cryptography;
 using System.Net;
 
-namespace ds
+namespace importkey
 {
-    class Program
+  public  class import
     {
-        static void Main(String[] args)
-        {  string KeyName = args[0];
-            string privat = "keys\\" + KeyName + ".xml";
-            string publik = "keys\\" + KeyName + ".pub.xml";
-            string shtegu = args[1];
+        public static void Import(string Keyname,string shtegu)
+        {
+
+            string privat = "keys\\" + Keyname + ".xml";
+            string publik = "keys\\" + Keyname + ".pub.xml";
             var cs = new CspParameters() { };
             cs.Flags = CspProviderFlags.UseMachineKeyStore;
 
- if (shtegu.Contains(".xml"))
+       if (shtegu.Contains(".xml"))
             {
                 if (File.Exists(shtegu))
                 {
@@ -104,7 +98,15 @@ namespace ds
                     Console.WriteLine("Celesi publik u ruajt ne fajllin " + publik);
                 }
             }
-          }
-
-    }
+           
+        else if (!(File.Exists(shtegu)))
+            {
+                Console.Write("Gabim: Fajlli i dhene nuk eshte celes valid.");
+            }
+            else
+            {
+                Console.Write("Gabim: Fajlli i dhene nuk eshte celes valid.");
+            }
+        }
+  }
 }
