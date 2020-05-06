@@ -120,6 +120,45 @@ namespace ds
                    Environment.Exit(1);
               }
             }
+            if (args[0].Equals("create-user"))
+                {
+                    if (args.Length == 2)
+                    {
+                        Createuser createe = new Createuser();
+
+                        {
+                            string KeyNName = args[1];
+                            if (Regex.IsMatch(KeyNName, "^[a-zA-Z0-9_]*$"))
+                            {
+                                Createuser.Krijo(KeyNName);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Keni dhene komanda jo valide");
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Shenoni 2 argumente:create-user dhe KeyName");
+                    }
+
+               }
+            if (args[0].Equals("delete-user"))
+                {
+                    if (args.Length == 2)
+                    {
+                        Deleteuser deleteuuser = new Deleteuser();
+                        string KeyNName = args[1];
+                        Deleteuser.Largo(KeyNName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Shenoni 2 argumente:delete-user dhe KeyName");
+                    }
+                }
+            
         }
     }
 }   
