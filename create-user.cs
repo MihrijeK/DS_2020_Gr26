@@ -7,18 +7,21 @@ using System.IO;
 using System.Security.Cryptography;
 
 
-namespace createuser
+namespace ds
 {
-    class createuser
+    class Createuser
     {
         //krjimi i nje funksioni qe shperben per krijimin e celesave
        public static void Krijo(string KeyName)
         {
-            
+             
             
             
             //Folderi ku duam ta ruajm celesin
-              string KeyPath = "C://keys";
+             string KeyPath = "C://keys";
+             if (!(Directory.Exists(KeyPath)))
+
+                Directory.CreateDirectory(KeyPath);
             
            //kontrollojm se a ekziston ky celes paraprakisht
              bool DoesKeyExist(string name)
