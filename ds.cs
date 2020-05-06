@@ -158,7 +158,89 @@ namespace ds
                         Console.WriteLine("Shenoni 2 argumente:delete-user dhe KeyName");
                     }
                 }
-            
+           if (args[0].Equals("write-message"))
+            {
+                read_write obj = new read_write();
+                if (args.Length == 3)
+                {
+
+                    try
+                    {
+                        byte[] Data = read_write.EnkriptimiIMesazhit(args[2], key, DESalg.IV);
+                        string mesazhi = Convert.ToBase64String(Data);
+                        encryptedData = read_write.RSAEncrypt(key, publik);
+                        string qelsi = Convert.ToBase64String(encryptedData);
+                        Console.WriteLine(part1 + "." + part2 + "." + qelsi + "." + mesazhi);
+
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Gabim: Celesi publik " + String.Concat(KeyName) + " nuk ekziston ");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        byte[] Data = read_write.EnkriptimiIMesazhit(args[2], key, DESalg.IV);
+                        string mesazhi = Convert.ToBase64String(Data);
+                        encryptedData = read_write.RSAEncrypt(key, publik);
+                        string qelsi = Convert.ToBase64String(encryptedData);
+                        string ciphertexti = part1 + "." + part2 + "." + qelsi + "." + mesazhi;
+                        StreamWriter sw = new StreamWriter(args[3]);
+                        sw.Write(ciphertexti);
+                        sw.Close();
+                        Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin " + args[3]);
+                    }
+                    catch (CryptographicException e)
+                    {
+                        Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
+                      
+                    }
+                }
+            }
+            if (args[0].Equals("read-message"))
+            {
+                read_write obj = new read_write();
+                bool fileExist = File.Exists(args[1]);
+                if (fileExist)
+                {
+                    string strXmlParameters = "";
+                    StreamReader sr = new StreamReader(args[1]);
+                    strXmlParameters = sr.ReadToEnd();
+                    sr.Close();
+                    String[] hyrja = strXmlParameters.Split('.');
+                    try
+                    {
+
+                        Console.WriteLine("Marresi: " + new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])));
+                        string privati = String.Concat(KeyPath, "\\", new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])), ".xml");
+                        decryptedData = read_write.RSADecrypt(Convert.FromBase64String(hyrja[2]), privati);
+                        Console.WriteLine("Mesazhi: " + read_write.DekriptimiIMesazhit(Convert.FromBase64String(hyrja[3]), decryptedData, Convert.FromBase64String(hyrja[1])));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Gabim: Celesi privat " + String.Concat("keys/", new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])), ".xml") + " nuk ekziston ");
+                    }
+
+                }
+                else
+                {
+                    String[] hyrja = args[1].Split('.');
+                    try
+                    {
+
+                        Console.WriteLine("Marresi: " + new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])));
+                        string privati = String.Concat(KeyPath, "\\", new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])), ".xml");
+                        decryptedData = read_write.RSADecrypt(Convert.FromBase64String(hyrja[2]), privati);
+                        Console.WriteLine("Mesazhi: " + read_write.DekriptimiIMesazhit(Convert.FromBase64String(hyrja[3]), decryptedData, Convert.FromBase64String(hyrja[1])));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Gabim: Celesi privat " + String.Concat("keys/", new ASCIIEncoding().GetString(Convert.FromBase64String(hyrja[0])), ".xml") + " nuk ekziston ");
+                    }
+                }
+            }
         }
     }
 }   
