@@ -185,17 +185,17 @@ namespace ds
 
                 if (args.Length==4)
                 {
-                    string KeyName = args[2];
+                    string KeyName1 = args[2];
                     string PP = args[1];
                     string exportfolder = args[3];
-                    exportkey.Eksporti(KeyName, PP, exportfolder);
+                    exportkey.Eksporti(KeyName1, PP, exportfolder);
                    
                 }
                 else if(args.Length==3)
                 {
-                    string KeyName = args[2];
+                    string KeyName1 = args[2];
                     string PP = args[1];
-                    exportkey.Ek(KeyName, PP);
+                    exportkey.Ek(KeyName1, PP);
 
                 }
                 else
