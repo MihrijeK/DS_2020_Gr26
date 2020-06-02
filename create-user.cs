@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 
 namespace ds
@@ -14,6 +15,10 @@ namespace ds
             string pass = "";
             string pass1 = "";
             Console.Write("Enter password:");
+             do
+            {
+             ConsoleKeyInfo key = Console.ReadKey(true);
+           
         //krjimi i nje funksioni qe shperben per krijimin e celesave
        public static void Krijo(string KeyName)
         {
