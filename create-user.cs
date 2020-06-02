@@ -11,6 +11,9 @@ namespace ds
 {
     class Createuser
     {
+            string pass = "";
+            string pass1 = "";
+            Console.Write("Enter password:");
         //krjimi i nje funksioni qe shperben per krijimin e celesave
        public static void Krijo(string KeyName)
         {
