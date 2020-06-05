@@ -316,6 +316,38 @@ namespace ds
                     }
                 }
             }
+            if (args[0].Equals("create-user"))
+            {
+                if (args.Length == 2)
+                {
+                    Createuser createe = new Createuser();
+
+                    {
+                        string KeyNName = args[1];
+                        if (Regex.IsMatch(KeyNName, "^[a-zA-Z0-9_]*$"))
+                        {
+                            Createuser.Krijo(KeyNName);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Keni dhene komanda jo valide");
+                            Environment.Exit(1);
+                        }
+                    }
+                }
+                
+                else
+                {
+                    Console.WriteLine("Shenoni 2 argumente:create-user dhe KeyName");
+                    Environment.Exit(1);
+                }
+
+            }
+            else if (args[0].Equals("delete-user"))
+            {
+
+                Deleteuser.Largo(args[1]);
+            }
         }
     }
 }   
