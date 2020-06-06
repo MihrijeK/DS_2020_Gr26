@@ -150,7 +150,56 @@ namespace ds
                 return null;
             }
         }
-          
+    
+     public static byte[] HashAndSignBytes(byte[] DataToSign, string pathi)
+     {
+        try
+        {
+            // Perdorimi i instances RSACryptoServiceProvider
+            // per perdorim te qelsave
+            string strXmlParameters = "";
+            StreamReader sr = new StreamReader(pathi);
+            strXmlParameters = sr.ReadToEnd();
+            sr.Close();
+            //Importon informacionet e celesit RSA.
+            //nese  nevojiten vetem informacionet e celesit publik
+            RSA.FromXmlString(strXmlParameters);
+            // Ben hash dhe i nenshkruan e dhenat.Perdorimi i SHA1CryptoServiceProvider
+            // per te specifikuar perdorimin e SHA1 per gjetjen e hash-it.
+            return RSA.SignData(DataToSign, new SHA1CryptoServiceProvider());
+        }
+        catch (CryptographicException e)
+        {
+            Console.WriteLine(e.Message);
+
+            return null;
+        }
     }
+
+    public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, string pathi)
+    {
+        try
+        {
+            // Perdorimi i instances RSACryptoServiceProvider
+            // per perdorim te qelsave
+            string strXmlParameters = "";
+            StreamReader sr = new StreamReader(pathi);
+            strXmlParameters = sr.ReadToEnd();
+            sr.Close();
+            RSA.FromXmlString(strXmlParameters);
+          
+            // Verifikimi i te dhenave duke perdor nenshkrimin .Perdorimi i SHA1CryptoServiceProvider
+            // per te specifikuar perdorimin e SHA1 per gjetjen e hash-it.
+            return RSA.VerifyData(DataToVerify, new SHA1CryptoServiceProvider(), SignedData);
+        }
+        catch (CryptographicException e)
+        {
+            Console.WriteLine(e.Message);
+
+            return false;
+        }
+    }
+          
+   }
         
 }
