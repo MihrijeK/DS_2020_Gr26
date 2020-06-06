@@ -51,14 +51,105 @@ namespace ds
              }
             
             //nese ky celes ekziston me pare shfaq kete mesazh
+             //nese ky celes ekziston me pare shfaq kete mesazh
             if (DoesKeyExist(KeyName))
             {
-                Console.WriteLine("Gabim:Celesi " + KeyName + " ekziston paraprakisht");
+                Console.WriteLine("Gabim:Shfrytezuesi " + KeyName + " ekziston paraprakisht");
             }
 
-           //nese ky celes nuk ekziston me pare:
-           if (!DoesKeyExist(KeyName))
-           {
+            //nese ky celes nuk ekziston me pare:
+            if (!DoesKeyExist(KeyName))
+            {
+
+
+
+
+                DatabaseConnection DB = new DatabaseConnection();
+                string pass = "";
+                string pass1 = "";
+                Console.Write("Enter password:");
+                do
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    // Backspace Should Not Work
+                    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                    {
+                        pass += key.KeyChar;
+                        Console.Write("*");
+                    }
+                    else
+                    {
+                        if (key.Key == ConsoleKey.Backspace && pass.Length > 0)
+                        {
+                            pass = pass.Substring(0, (pass.Length - 1));
+                            Console.Write("\b \b");
+                        }
+                        else if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                    }
+                } while (true);
+                string password = new System.Net.NetworkCredential(string.Empty, pass).Password;
+
+                var hasNumber = new Regex(@"[0-9]+");
+                var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+                bool validimi()
+                {
+
+                    if (password.Length < 6)
+                    {
+                        Console.WriteLine("\nShkruane nje password me te gjate se 6 karaktere .");
+                        return false;
+                    }
+
+                    if (!hasNumber.IsMatch(password) && (!hasSymbols.IsMatch(password)))
+                    {
+                        Console.WriteLine("\nPassword-i duhet te permbaj se paku nje numer ose nje karakter !");
+                        return false;
+                    }
+                    if (hasNumber.IsMatch(password) && (!hasSymbols.IsMatch(password)))
+                    {
+                        return true;
+                    }
+                    if (!hasNumber.IsMatch(password) && (hasSymbols.IsMatch(password)))
+                    {
+                        return true;
+                    }
+                    return true;
+                }
+                if (validimi())
+                {
+                    Console.Write("\nConfirm Password:");
+                    do
+                    {
+
+                        ConsoleKeyInfo keyy = Console.ReadKey(true);
+                        // Backspace Should Not Work
+                        if (keyy.Key != ConsoleKey.Backspace && keyy.Key != ConsoleKey.Enter)
+                        {
+                            pass1 += keyy.KeyChar;
+                            Console.Write("*");
+                        }
+                        else
+                        {
+                            if (keyy.Key == ConsoleKey.Backspace && pass1.Length > 0)
+                            {
+                                pass = pass.Substring(0, (pass1.Length - 1));
+                                Console.Write("\b \b");
+                            }
+                            else if (keyy.Key == ConsoleKey.Enter)
+                            {
+                                break;
+                            }
+                        }
+                    } while (true);
+
+
+                    if (pass != pass1)
+                    {
+                        Console.WriteLine("\nPassword-at nuk perputhen !");
+                    }
                
                 var cp = new CspParameters();
                 cp.KeyContainerName = KeyName;
