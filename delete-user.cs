@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
+using MySql.Data.MySqlClient;
 
 
 namespace ds
@@ -17,7 +18,7 @@ namespace ds
       {
               
                //path ku ruhet qelesi
-               string KeyPath = "C://keys";
+                string KeyPath = "C://keys";
                 string publik = String.Concat(KeyPath, "\\", KeyName, ".pub", ".xml");
                 string privat = String.Concat(KeyPath, "\\", KeyName, ".xml");
                 //funksioni qe sherben per te shiquar se a ekziston paraprakisht celesi
@@ -52,8 +53,13 @@ namespace ds
                 //nese ekziston ai celes
                 if (DoesKeyExist(KeyName))
                 {
-                     
-                   //nese ekzistojn Path te dhene
+                  Connection C = new Connection();
+                  String query = "DELETE FROM users WHERE name=" + "'" + KeyName + "';";
+                   MySqlDataReader row;
+                   row = Connection.databaza(query);
+                   Console.WriteLine("Eshte larguar shfrytezuesi " + KeyName);
+
+                    //nese ekzistojn Path te dhene
                     if (File.Exists(Path.Combine(KeyPath, privat)) && File.Exists(Path.Combine(KeyPath, publik)))
                     {
                         var cp = new CspParameters
@@ -108,10 +114,9 @@ namespace ds
                 //nese celesi nuk ekziston paraqite mesazhin qe nuk ekziston celesi me ate emer
                  else if (!DoesKeyExist(KeyName))
                 {
-                    Console.WriteLine("Gabim:Celesi " + KeyName + " nuk ekziston.");
+                    Console.WriteLine("Gabim: Shfrytezuesi " + KeyName + " nuk ekziston.");
                 }
-          
-      }
+         }
     }
 }
       
