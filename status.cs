@@ -100,3 +100,31 @@ namespace ds
             errorMessage = string.Empty;
             return true;
         }
+        public bool status(string jwt)
+        {
+            JwtSecurityToken token = Handler.ReadJwtToken(jwt);
+
+            IEnumerable<Claim> User = token.Claims;
+            String name = User.FirstOrDefault(user => user.Type.ToString().Equals("name")).Value;
+            DateTimeOffset datetime = Exp(jwt);
+
+            Console.WriteLine("User: " + name);
+            Console.WriteLine("Skadimi: " + datetime.LocalDateTime);
+            if (datetime < DateTimeOffset.Now)
+            {
+                return false;
+            }
+
+            if (!File.Exists("C://keys//" + name + ".pub.xml"))
+            {
+                return false;
+            }
+
+            if (!VerifikoTokenin(jwt, name, out string error))
+            {
+                Console.WriteLine(error);
+                return false;
+            }
+
+            return true;
+        }
