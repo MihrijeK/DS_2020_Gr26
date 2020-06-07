@@ -177,7 +177,7 @@ namespace ds
 
                         try
                         {
-                            String query = "INSERT INTO siguria VALUES" + "('" + KeyName + "','" + hashedpassword + "','" + saltt + "')";
+                            String query = "INSERT INTO users VALUES" + "('" + KeyName + "','" + hashedpassword + "','" + saltt + "')";
 
 
                             MySqlDataReader row;
