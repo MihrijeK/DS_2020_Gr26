@@ -81,6 +81,15 @@ namespace ds
         }
         
         //Base64UrlEncode
+          private static string Base64UrlEncode(byte[] input)
+        {
+            var output = Convert.ToBase64String(input);
+            output = output.Split('=')[0];
+            output = output.Replace('+', '-');
+            output = output.Replace('/', '_');
+            return output;
+        }
+
         
          private string SignToken(string payload, string name)
         {
