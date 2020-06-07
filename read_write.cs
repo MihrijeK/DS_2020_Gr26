@@ -151,7 +151,7 @@ namespace ds
             }
         }
     
-     public static byte[] HashAndSignBytes(byte[] DataToSign, string pathi)
+     public static byte[] Nenshkrimi(byte[] DataToSign, string pathi)
      {
         try
         {
@@ -176,7 +176,7 @@ namespace ds
         }
     }
 
-    public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, string pathi)
+    public static bool VerifikimiiNenshkrimit(byte[] DataToVerify, byte[] SignedData, string pathi)
     {
         try
         {
