@@ -49,8 +49,8 @@ namespace ds
                         }
                     }
                 } while (true);
-                string dbPassword = ds.Tables[0].Rows[0]["passwordd"].ToString();
-                string dbSalt = ds.Tables[0].Rows[0]["salt"].ToString();
+                string dbPassword = ds.Tables[0].Rows[0]["password"].ToString();
+                string dbSalt = ds.Tables[0].Rows[0]["saltt"].ToString();
 
 
 
