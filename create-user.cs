@@ -181,7 +181,7 @@ namespace ds
 
 
                             MySqlDataReader row;
-                            row = DatabaseConnection.databaza(query);
+                            row = Connection.databaza(query);
                             Console.WriteLine("\nEshte krijuar shfrytezuesi " + KeyName);
                         }
                         catch (Exception exception)
