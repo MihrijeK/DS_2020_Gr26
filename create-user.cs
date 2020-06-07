@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 
 namespace ds
 {
     class Createuser
     {
-            string pass = "";
-            string pass1 = "";
-            Console.Write("Enter password:");
-             do
-            {
-             ConsoleKeyInfo key = Console.ReadKey(true);
+            
            
         //krjimi i nje funksioni qe shperben per krijimin e celesave
        public static void Krijo(string KeyName)
@@ -64,14 +61,14 @@ namespace ds
 
 
 
-                DatabaseConnection DB = new DatabaseConnection();
+                Connection C = new Connection();
                 string pass = "";
                 string pass1 = "";
-                Console.Write("Enter password:");
+                Console.Write("Jepni fjalekalimin :");
                 do
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
-                    // Backspace Should Not Work
+                    // Backspace nuk duhet te punoj
                     if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                     {
                         pass += key.KeyChar;
@@ -120,12 +117,12 @@ namespace ds
                 }
                 if (validimi())
                 {
-                    Console.Write("\nConfirm Password:");
+                    Console.Write("\nPerserit fjalekalimin :");
                     do
                     {
 
                         ConsoleKeyInfo keyy = Console.ReadKey(true);
-                        // Backspace Should Not Work
+                        // Backspace nuk duhet te punojn
                         if (keyy.Key != ConsoleKey.Backspace && keyy.Key != ConsoleKey.Enter)
                         {
                             pass1 += keyy.KeyChar;
@@ -148,8 +145,50 @@ namespace ds
 
                     if (pass != pass1)
                     {
-                        Console.WriteLine("\nPassword-at nuk perputhen !");
+                        Console.WriteLine("\nFjalekalimet nuk perputhen !");
                     }
+                    else
+                    {
+
+
+
+                        string CreateSalt(int size)
+                        {
+                            // Generate a cryptographic random number using the cryptographic
+                            // service provider
+                            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+                            byte[] buff = new byte[size];
+                            rng.GetBytes(buff);
+                            // Return a Base64 string representation of the random number
+                            return Convert.ToBase64String(buff);
+                        }
+                        string generatehash(string input, string salt)
+                        {
+                            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input + salt);
+                            System.Security.Cryptography.SHA256Managed sha256shstring =
+                                new System.Security.Cryptography.SHA256Managed();
+                            byte[] hash = sha256shstring.ComputeHash(bytes);
+                            string hashh = Convert.ToBase64String(hash);
+                            return hashh;
+                        }
+
+                        string saltt = CreateSalt(10);
+                        string hashedpassword = generatehash(pass, saltt);
+
+                        try
+                        {
+                            String query = "INSERT INTO siguria VALUES" + "('" + KeyName + "','" + hashedpassword + "','" + saltt + "')";
+
+
+                            MySqlDataReader row;
+                            row = DatabaseConnection.databaza(query);
+                            Console.WriteLine("\nEshte krijuar shfrytezuesi " + KeyName);
+                        }
+                        catch (Exception exception)
+                        {
+                            throw new Exception(exception.Message);
+                        }
+
                
                 var cp = new CspParameters();
                 cp.KeyContainerName = KeyName;
@@ -196,9 +235,11 @@ namespace ds
            {
             Console.WriteLine("Eshte shfaqur nje problem gjate krijimit te celesit public");
            }
-          }
-        }
-    }
-}
+               }
+            }
+         }
+       }
+     }
+   }
 
 
