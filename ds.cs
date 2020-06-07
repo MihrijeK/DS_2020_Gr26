@@ -191,48 +191,86 @@ namespace ds
                 }
 
             }
-           if (args[0].Equals("write-message"))
+              else if (argument == "write-message")
             {
-                read_write obj = new read_write();
+
                 if (args.Length == 3)
                 {
 
-                    try
+                    string KeyName = args[1];
+                    string KeyPath = "C://keys";
+                    string publik = String.Concat(KeyPath, "//", KeyName, ".pub", ".xml");
+                    if (File.Exists(publik))
                     {
+                        byte[] Name = Encoding.UTF8.GetBytes(KeyName);
+                        string part1 = Convert.ToBase64String(Name);
+                        DESalg.GenerateIV();
+                        string part2 = Convert.ToBase64String(DESalg.IV);
+
+
                         byte[] Data = read_write.EnkriptimiIMesazhit(args[2], key, DESalg.IV);
                         string mesazhi = Convert.ToBase64String(Data);
+
                         encryptedData = read_write.RSAEncrypt(key, publik);
                         string qelsi = Convert.ToBase64String(encryptedData);
-                        Console.WriteLine(part1 + "." + part2 + "." + qelsi + "." + mesazhi);
+
+                        try
+                        {
+
+                            Console.WriteLine(part1 + "." + part2 + "." + qelsi + "." + mesazhi);
+                        }
+                        catch
+                        {
+
+
+                            Console.WriteLine("Gabim: Celesi publik " + String.Concat(publik) + " nuk ekziston ");
+                            Environment.Exit(1);
+                        }
 
                     }
-                    catch
+                    else
                     {
-                        Console.WriteLine("Gabim: Celesi publik " + String.Concat(KeyName) + " nuk ekziston ");
-                        Environment.Exit(1);
+                        Console.WriteLine("Gabim:Keni dhene komanda jo valide.");
                     }
                 }
-                else
+                else if (args.Length == 4)
                 {
-                    try
+                    if (args[3].Contains(".txt") || args[3].Contains(".xml"))
                     {
-                        byte[] Data = read_write.EnkriptimiIMesazhit(args[2], key, DESalg.IV);
-                        string mesazhi = Convert.ToBase64String(Data);
-                        encryptedData = read_write.RSAEncrypt(key, publik);
-                        string qelsi = Convert.ToBase64String(encryptedData);
-                        string ciphertexti = part1 + "." + part2 + "." + qelsi + "." + mesazhi;
-                        StreamWriter sw = new StreamWriter(args[3]);
-                        sw.Write(ciphertexti);
-                        sw.Close();
-                        Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin " + args[3]);
+                        try
+                        {
+                            string KeyName = args[1];
+                            byte[] Name = Encoding.UTF8.GetBytes(KeyName);
+                            string part1 = Convert.ToBase64String(Name);
+                            DESalg.GenerateIV();
+                            string part2 = Convert.ToBase64String(DESalg.IV);
+                            string KeyPath = "C://keys";
+
+                            byte[] Data = read_write.EnkriptimiIMesazhit(args[2], key, DESalg.IV);
+                            string mesazhi = Convert.ToBase64String(Data);
+
+                            string publik = String.Concat(KeyPath, "//", KeyName, ".pub", ".xml");
+                            encryptedData = read_write.RSAEncrypt(key, publik);
+                            string qelsi = Convert.ToBase64String(encryptedData);
+                            if (File.Exists(publik))
+                            {
+                                string ciphertexti = part1 + "." + part2 + "." + qelsi + "." + mesazhi;
+                                StreamWriter sw = new StreamWriter(args[3]);
+                                sw.Write(ciphertexti);
+                                sw.Close();
+                                Console.WriteLine("Mesazhi i enkriptuar u ruajt ne fajllin " + args[3]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("keq");
+                            }
+                        }
+                        catch (CryptographicException e)
+                        {
+                            Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
+                            Environment.Exit(1);
+                        }
                     }
-                    catch (CryptographicException e)
-                    {
-                        Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
-                        Environment.Exit(1);
-                    }
-                }
-            }
             else if (argument == "read-message")
             {
 
