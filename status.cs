@@ -17,6 +17,7 @@ namespace ds
     public class TokenStatus
     {
         JwtSecurityTokenHandler Handler = new JwtSecurityTokenHandler();
+        //funksioni i VerifikoTokenin i cili merr ne hyrje tokenin dhe permes celesit publik e verifikon 
         public bool VerifikoTokenin(string jwt, string publik, out string errorMessage)
         {
             string key = "";
@@ -100,6 +101,7 @@ namespace ds
             errorMessage = string.Empty;
             return true;
         }
+        //Funksioni status i cili merr tokenin ne hyrje
         public bool status(string jwt)
         {
             JwtSecurityToken token = Handler.ReadJwtToken(jwt);
@@ -128,3 +130,44 @@ namespace ds
 
             return true;
         }
+        //Funksioni statusi i cili merr tokenin ne hyrje dhe permes keti funksioni e marrim derguesin te komanda read-message
+        public string statusi(string jwt)
+        {
+            JwtSecurityToken token = Handler.ReadJwtToken(jwt);
+
+            IEnumerable<Claim> User = token.Claims;
+            String name = User.FirstOrDefault(user => user.Type.ToString().Equals("name")).Value;
+            DateTimeOffset datetime = Exp(jwt);
+
+
+            if (datetime < DateTimeOffset.Now)
+            {
+                return "Token-i ka skaduar ! ";
+            }
+
+            if (!File.Exists("C://keys//" + name + ".pub.xml"))
+            {
+                return "Mungon celesi publik " + name;
+            }
+
+            if (!VerifikoTokenin(jwt, name, out string error))
+            {
+                Console.WriteLine(error);
+                return "Verifikimi ka deshtuar !";
+            }
+
+            return name;
+        }
+
+        //Percaktimi i kohes 
+        public DateTimeOffset Exp(string tokenString)
+        {
+            var token = Handler.ReadJwtToken(tokenString);
+
+            var Koha = token.Payload.First().Value;
+            DateTimeOffset timeoffset = DateTimeOffset.FromUnixTimeSeconds(Koha.GetHashCode());
+            return timeoffset;
+        }
+    }
+} 
+       
