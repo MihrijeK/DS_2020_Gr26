@@ -63,7 +63,7 @@ namespace ds
                 {
                     var payloadOBJ = new JwtPayload
             {
-                {"exp: ", DateTimeOffset.UtcNow.AddMinutes(3).ToUnixTimeSeconds()},
+                {"exp: ", DateTimeOffset.UtcNow.AddMinutes(20).ToUnixTimeSeconds()},
                 {"name", username}
             };
 
@@ -79,3 +79,45 @@ namespace ds
                 Console.WriteLine("\nGabim: Shfrytezuesi nuk ekziston!");
             }
         }
+        
+        //Base64UrlEncode
+        
+         private string SignToken(string payload, string name)
+        {
+            List<string> pjeset = new List<string>();
+
+            var header = new { alg = "RS256", typ = "JWT" };
+
+            byte[] headerB = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(header, Formatting.None));
+            byte[] payloadB = Encoding.UTF8.GetBytes(payload);
+
+            pjeset.Add(Base64UrlEncode(headerB));
+            pjeset.Add(Base64UrlEncode(payloadB));
+
+            string str = string.Join(".", pjeset.ToArray());
+
+            byte[] bytesToSign = Encoding.UTF8.GetBytes(str);
+            string path = "C://keys//" + name + ".xml";
+            StreamReader reader = new StreamReader(path);
+            string parametrat = reader.ReadToEnd();
+            objRSA.FromXmlString(parametrat);
+            byte[] key = objRSA.ExportRSAPrivateKey();
+
+            var privat = Asn1Object.FromByteArray(key);
+            var privatS = RsaPrivateKeyStructure.GetInstance((Asn1Sequence)privat);
+
+            ISigner nenshkrimi = SignerUtilities.GetSigner("SHA256withRSA");
+
+            nenshkrimi.Init(true, new RsaKeyParameters(true, privatS.Modulus, privatS.PrivateExponent));
+
+            nenshkrimi.BlockUpdate(bytesToSign, 0, bytesToSign.Length);
+            byte[] gensignature = nenshkrimi.GenerateSignature();
+
+            pjeset.Add(Base64UrlEncode(gensignature));
+            return string.Join(".", pjeset.ToArray());
+        }
+
+
+    }
+
+}
