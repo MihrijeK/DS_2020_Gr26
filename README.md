@@ -22,7 +22,19 @@ Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më pos
 ![](Images/Playfair.png)
 Gjenerimi i tabeles ne baze te keyword per piket shtese
 
+# Komanda Export-key
+Eksporton çelësin publik ose privat të shfrytëzuesit nga direktoriumi i çelësave.Nëse shkruajmë 3 argumente vartësisht nga lloji i celësit,përmbajtja e tij na u paraqitet në Console,përndryshe nëse i shkruajmë 4 argumente celësi ruhet në fajllin të cilin ne ia përcaktojme.Ndonjëherë mund ta kemi vetëm çelësin publik të një shfrytëzuesi, prandaj nëse e kërkojmë çelësin
+privat do të shfaqet një mesazh gabimi.
+![](Images/export-key.png)
+# Komanda Import-key
+Importon çelësin publik ose privat të shfrytëzuesit nga shtegu i dhënë dhe e vendos në direktoriumin
+e çelësave.Çelësi i importuar mund të jetë publik ose privat.
+Sintaksa: ds import-key <name> <path>
+![](Images/import1.png)
+![](Images/importkey2.png)
+
 # Komanda Create-user
+ -- > Faza 2 :
 Komanda Create-user e krijon nje RSA key pair të celësave.
 Me anë të funksionit Krijo() e kemi bërë të mundshme këtë.
 Ndërsa me anë te funksionit DoesKeyExist() mund ta kontrollojm nese ekziston paraprakisht ai celës.Nese jo atëherë na  mundësohet krijimi i atij celësi.
@@ -37,9 +49,17 @@ Celësi duhet të permbaj vetëm shkronja numra dhe _  .Celesi nuk duhet të pë
 Nëse celësi ekziston paraprakisht:
 ![](Images/doeskeyexist.png)
 
-
+ -- > Faza 3 :
+ Në fazën e 3-të është zgjeruar komanda create-user nga faza e 2-të ashtu që gjatë krijimit të shfrytëzuesit të kërkohet edhe
+fjalëkalimi si dhe të dhënat të ruhen në bazë të shenimeve .
+Fjalëkalimi kërkohet përmes inputit, pasi që nuk preferohet të figurojë në histori. Fjalëkalimi duhet të ketë gjatësinë së paku 6 karaktere dhe duhet të përmbajë së paku një numër ose simbol.Fjalëkalimi i shfrytëzuesitështë ruajtur në formë të sigurt përmes hash algoritmeve dhe salting në .
+Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit dhe egzekutimi me sukses i kësaj komande bazë të shenimeve.
+![](create1.png)
+![](Images/c1.png)
+![](create.png)
 
 # Komanda Delete-user
+ -- > Faza 2 :
 Komanda Delete-user sherben per ti larguar të gjithë çelësat ekzistues të shfrytëzuesit.Nëse ekziston vetëm celësi publik atëherë e fshin vetëm atë,ndërsa nëse nuk ekziston fare ai celës atëherë paraqitet mesazhi i caktuar.
 Si argument të parë e shënojm këtë komandë ndërsa si argument të dytë e shënojmë KeyName.
 
@@ -49,35 +69,70 @@ Si argument të parë e shënojm këtë komandë ndërsa si argument të dytë e
 Ndërsa nëse shënojmë më shumë argumente se sa që duhet:
 ![](Images/validimi2.png)
 
+ -- > Faza 3 :
+Në fazën e 3-të është zgjeruar komanda delete-user nga faza e 2-të ashtu që kur të thirret kjo komandë do të fshihen edhe të gjitha të dhënat e shfrytëzuesit nga baza e shënimeve dhe të gjithë celesat e ti.
+Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit dhe egzekutimi me sukses i kësaj komande .
+![](Images/delete.png)
 
-# Komanda Export-key
-Eksporton çelësin publik ose privat të shfrytëzuesit nga direktoriumi i çelësave.Nëse shkruajmë 3 argumente vartësisht nga lloji i celësit,përmbajtja e tij na u paraqitet në Console,përndryshe nëse i shkruajmë 4 argumente celësi ruhet në fajllin të cilin ne ia përcaktojme.Ndonjëherë mund ta kemi vetëm çelësin publik të një shfrytëzuesi, prandaj nëse e kërkojmë çelësin
-privat do të shfaqet një mesazh gabimi.
-![](Images/export-key.png)
-# Komanda Import-key
-Importon çelësin publik ose privat të shfrytëzuesit nga shtegu i dhënë dhe e vendos në direktoriumin
-e çelësave.Çelësi i importuar mund të jetë publik ose privat.
-Sintaksa: ds import-key <name> <path>
-![](Images/import1.png)
-![](Images/importkey2.png)
+# Komanda login
+Teston çiftin shfrytëzues/fjalëkalim. Në rast suksesi lëshohet një token i nënshkruar i cili mund të
+përdoret për autentikim të shfrytëzuesit.
+Për nënshkrim të tokenit përdoret çelësi privat i shfrytëzuesit, ndërsa për vërtetim të nënshkrimit përdoret çelësi publik i
+shfrytëzuesit.
+Tokeni skadon pas 20 minutave. Tokeni mund të përdoret vetëm për shfrytëzuesin për të cilin është
+lëshuar. Sintaksa per kete komand : ds login <name>
+Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
            
+Realizimi me sukses i pikës shtesë: Të lexohet fjalëkalimi pa echo të simboleve në ekran (sikur read -s).
+![](Images/login.png)
+           
+# Komanda status
+Jep informata rreth tokenit sic jane User, A eshte valid apo jo dhe koha e skadimit.
+Nëse tokeni ka skaduar, nuk ka nënshkrim valid, ose nuk ekziston shfrytëzuesi, atëherë tokeni nuk
+konsiderohet valid.
+Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
+![](status.png)
+
 # Komanda Write Message
+  -- > Faza 2 :
 E shkruan një mesazh të enkriptuar të dedikuar për një shfrytëzues.
-Është krijuar funksioni Enkriptimi i Mesazhit permes DES me çelësin key të gjeneruar permes RNGCryptoServiceProvider dhe IV e gjenerauar permes instances së klasës DESCryptoServiceProvider, ky çelës i DES-it enkriptohet permes RSA me anë të funksionit RSAEncrypt me çelësin publik keys/<name>.pub.xml. pra me celesin publik të marresit pastaj ky çelës i enkriptuar me RSA convertohet në base64 dhe shfaqet në Console apo ruhet në dokumentin qe jep shfrytezuesi, në Console shfaqet gjithashtu emri i marresit në base64,IV në base 64 si dhe mesazhi i enkriptuar në base64 pra sipas skemës ne vijim:
+Është krijuar funksioni Enkriptimi i Mesazhit përmes DES me çelësin key të gjeneruar permes RNGCryptoServiceProvider dhe IV e gjenerauar permes instances së klasës DESCryptoServiceProvider, ky çelës i DES-it enkriptohet permes RSA me anë të funksionit RSAEncrypt me çelësin publik keys/<name>.pub.xml. pra me celesin publik të marresit pastaj ky çelës i enkriptuar me RSA convertohet në base64 dhe shfaqet në Console apo ruhet në dokumentin qe jep shfrytezuesi, në Console shfaqet gjithashtu emri i marresit në base64,IV në base 64 si dhe mesazhi i enkriptuar në base64 pra sipas skemës ne vijim:
            ciphertext = base64(utf8(<name>)) . base64(<iv>). base64(rsa(<key>)) . base64(des(<message>))
+  -- > Faza 3:
+Në fazën e 3-të është zgjeruar komanda write-message nga faza e 2-të ku pervec marresit, mesazhit shkruajm edhe Tokenin e shfrytezuesit i cili po dergon mesazhin, ne këtë fazë është krijuar funksioni  Nenshkrimi me ate te cilit nenshkruhet mesazhi i enkriptuar.
+Vlera sender është emri i shfrytëzuesit që i korrespondon tokenit token. Komanda dështon nëse
+tokeni nuk është valid ose ka skaduar. Nëse mungon pjesa e tokenit atëherë egzekutimi i komandes vazhdon si në fazen e 2-të.
+Nëse validohet tokeni me sukses, atëherë nënshkrimi bëhet me çelësin privat të dërguesit sender dhe në Console shfaqet emri i marresit në base64,IV në base 64, mesazhi i enkriptuar në base64, emri i shfrytezuesit te tokenit ne base64 si dhe nenshkrimi i mesazhit te enkriptuar në base 64 pra sipas skemës ne vijim:
+ciphertext = base64(utf8(<name>)) . base64(<iv>) . base64(rsa(<key>)). base64(des(<message>)) . base64(utf8(<sender>)).                                                              base64(signature(des(<message>)))
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
 
 # Komanda Read Message
+  -- > Faza 2 :
 E dekripton dhe e shfaq në Console mesazhin e enkriptuar.
 Është krijur funksioni RSADecrypt për dekriptimin e çelësit qe merret nga hyerja duke e konvertuar nga base64 ne byte gjithashtu dekriptimi bëhet me çelësin privat keys/<name>.xml që merret nga hyrja duke e marr emrin dhe bashkangjit atë emer me fajllin ku janë gjeneruar çelësat nese nuk mund te gjendet çelësi privat atëhere shfaqet mesazh gabimi, çelësin i dekriptuar nga RSADecrypt-funksioni shfrytezohet nga funksioni DekriptimiiMesazhit që e dekripton mesazhin me atë çelës.
+  -- > Faza 3 : 
+Në fazën e 3-të është zgjeruar komanda read-message nga faza e 2-të ashtu që nëse figuron pjesa e dërguesit/nënshkrimit në mesazh,
+atëherë do të tentohet verifikimi i atij nënshkrimi duke përdorur çelësin publik të dërguesit, është krijuar funksioni VerifikimiiNenshkrimit i cili e bene verifikimin e nenshkrimit.
+Nëse mungon pjesa e dërguesit/nënshkrimit, atëherë komanda e injoron dhe vepron sikur në fazën e
+dytë. 
+           
 Shkrimi i argumenteve në mënyrë adekuate bëhet siq është paraqitur më poshtë pra ashtu si sintaksa në kërkesën e projektit.
 ![](Images/read1.png)
 ![](Images/read2%20(2).png)
 ![](Images/read3.png)
 ![](Images/read4.png)
+![](read-write4.png)
+![](read-write5.png)
+![](read-write6.png)
+![](read-write2.png)
 
+
+Validimet
+![](validimet.png)
 # --> Referencat : 
  Per komanden Morse orientimi ka qene kryesisht ne keto dy linqe : https://www.geeksforgeeks.org/morse-code-implementation/ ,
  https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netframework-4.7.
   Per komandat Beale dhe Playfair kryesisht jemi orientuar tek keto linqe : https://www.reddit.com/r/dailyprogrammer/ ,  https://www.geeksforgeeks.org/csharp-programming-language/  
-  Per komandat Read dhe Write Message kryesisht jemi orientuar tek keto linqe :https://www.c-sharpcorner.com/article/,https://docs.microsoft.com/en-us/dotnet/
+  Per komandat Read dhe Write Message kryesisht jemi orientuar tek keto linqe :https://www.c-sharpcorner.com/article/,https://docs.microsoft.com/en-us/dotnet/ 
+  Per komandat Create, Login dhe Status kryesisht jemi orientuar tek keto linqe : https://th.programqa.com/question/34403823/, https://tutel.me/c/programming/questions/34403823/verifying+jwt+signed+with+the+rs256+algorithm+using+public+key+in+c , 
+https://codingstill.com/2018/02/create-and-sign-jwt-token-with-rs256-using-the-private-key/, https://codingstill.com/2016/01/verify-jwt-token-signed-with-rs256-using-the-public-key/, https://docs.microsoft.com/en-us/dotnet/api/system.xml.xmlnodelist.count?view=netcore-3.1
